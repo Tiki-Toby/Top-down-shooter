@@ -1,35 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using AssetData;
+using GameLogic.UnitLogic.Factory;
+using Tools;
+using UnityEngine;
 
 namespace GameLogic.UnitLogic
 {
     public class UnitManager
     {
         private readonly IGameAssetData _gameAssetData;
-        private readonly Dictionary<EnumUnitType, List<UnitController>> _units;
+        private readonly UnitFactoryCreator _unitFactoryCreator;
+        private readonly Dictionary<EnumUnitType, UnitsPool> _units;
 
         public UnitController CharacterUnit
         {
             get
             {
-                List<UnitController> characterUnitList = _units[EnumUnitType.Character];
-                if (characterUnitList.Count > 0)
-                    return characterUnitList[0];
+                UnitsPool characterUnitList = _units[EnumUnitType.Character];
+                if (characterUnitList.ActiveCount == 0)
+                    throw new Exception("Missed character unit, but still try to get access");
 
-                return null;
+                return characterUnitList.FirstActive;
             }
         }
 
         public UnitManager(IGameAssetData gameAssetData)
         {
             _gameAssetData = gameAssetData;
-            _units = new Dictionary<EnumUnitType, List<UnitController>>();
+            _units = new Dictionary<EnumUnitType, UnitsPool>();
+            _unitFactoryCreator = new UnitFactoryCreator(_gameAssetData);
 
             foreach (EnumUnitType unitType in Enum.GetValues(typeof(EnumUnitType)))
             {
-                _units.Add(unitType, new List<UnitController>());
+                BaseUnitFactory factory = _unitFactoryCreator.GetUnitFactoryByType(unitType);
+                _units.Add(unitType, new UnitsPool(factory));
             }
+        }
+
+        public UnitController AddUnit(EnumUnitType unitType, Vector3 position)
+        {
+            return _units[unitType].GetNextController(position);
         }
 
         public void Update()

@@ -9,9 +9,10 @@ namespace GameLogic.AnimationLogic
     {
         private readonly UnitView _unitView;
 
-        private Vector3 _targetDirection; 
-        //скорость поворота через конфиг который будет синглетоном
+        private Vector3 _targetDirection;
 
+        public UnitView UnitView => _unitView;
+        
         public ViewController(UnitView unitView)
         {
             _unitView = unitView;
@@ -40,6 +41,16 @@ namespace GameLogic.AnimationLogic
                 currentLookDirection = Vector3.Lerp(currentLookDirection, _targetDirection, ConstantsVelocity.LookDirectionRotateVelocity * Time.deltaTime);
                 _unitView.transform.rotation.SetLookRotation(currentLookDirection);
             }
+        }
+
+        public void SetActive(bool isActive)
+        {
+            _unitView.gameObject.SetActive(isActive);
+        }
+
+        public void SetPosition(Vector3 position)
+        {
+            _unitView.transform.position = position;
         }
     }
 }

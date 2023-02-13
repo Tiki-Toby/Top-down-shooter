@@ -13,11 +13,12 @@ namespace GameLogic.UnitLogic.Factory
         {
         }
 
-        public override UnitController CreateUnitController()
+        public override UnitController CreateUnitController(Vector3 position)
         {
             UnitView characterPrefab = _gameAssetData.GetUnitView(EnumUnitType.Character);
             UnitView characterInstance = GameObject.Instantiate(characterPrefab, _parentTransform);
             ViewController viewController = new ViewController(characterInstance);
+            viewController.SetPosition(position);
             
             var moveController = new InputMoveController();
             var lookController = new InputLookDirectionController();

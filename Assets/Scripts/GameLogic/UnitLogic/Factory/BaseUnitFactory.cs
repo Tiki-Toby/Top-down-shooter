@@ -14,6 +14,6 @@ namespace GameLogic.UnitLogic.Factory
             _parentTransform = new GameObject().transform;
         }
         
-        public abstract UnitController CreateUnitController();
+        public abstract UnitController CreateUnitController(Vector3 position);
     }
 }

@@ -2,14 +2,13 @@
 using GameLogic.AttackLogic;
 using GameLogic.LookDirectionLogic;
 using GameLogic.MoveLogic;
-using UnityEngine;
 
 namespace GameLogic.UnitLogic
 {
     public class UnitController
     {
         private readonly IMoveController _moveController;
-        private readonly ILookDirectionController _lookDirectionController;
+        private readonly ALookDirectionController _lookDirectionController;
         private readonly IAttackController _attackController;
         private readonly ViewController _viewController;
 
@@ -17,7 +16,7 @@ namespace GameLogic.UnitLogic
 
         public UnitController(ViewController viewController,
             IMoveController moveController,
-            ILookDirectionController lookDirectionController,
+            ALookDirectionController lookDirectionController,
             IAttackController attackController)
         {
             _viewController = viewController;
@@ -29,8 +28,8 @@ namespace GameLogic.UnitLogic
         public void Update()
         {
             Move();
-            LookDirection();
             Attack();
+            _lookDirectionController.UpdateLookDirection();
             _viewController.Update();
         }
         
@@ -38,12 +37,6 @@ namespace GameLogic.UnitLogic
         {
             _moveController.Move();
             _viewController.Move(_moveController);
-        }
-
-        private void LookDirection()
-        {
-            _lookDirectionController.UpdateLookDirection();
-            _viewController.SetLookDirection(_lookDirectionController.LookDirection);
         }
 
         private void Attack()

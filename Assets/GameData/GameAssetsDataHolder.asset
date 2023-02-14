@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b43912b78bf245938a52617bc37c41d1, type: 3}
+  m_Name: GameAssetsDataHolder
+  m_EditorClassIdentifier: Assembly-CSharp:AssetData:GameAssetsDataHolder
+  _locationObjectReferencesHolder: {fileID: 11400000, guid: 80801575fbd0c4241af9faaba0623490, type: 2}
+  _uiViewsPrefabHolder: {fileID: 11400000, guid: e6aec5d5369139e4691c1f2eeb1a0512, type: 2}
+  _soundPrefabHolder: {fileID: 11400000, guid: 002be2b46d008e14f929b60cdcabe6c1, type: 2}
+  _spriteAssetHolder: {fileID: 11400000, guid: 31e7ba77e44950b46a9e74490c4369bc, type: 2}
+  _unitsAssetHolder: {fileID: 11400000, guid: e5a5317037b1a8d4a82e298a92773ef7, type: 2}

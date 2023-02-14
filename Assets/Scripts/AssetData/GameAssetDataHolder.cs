@@ -6,7 +6,7 @@ using UnityEngine;
 namespace AssetData
 {
     [CreateAssetMenu(fileName = "GameAssetsDataHolder", menuName = "GameAssetsData/GameAssetsDataHolder")]
-    public class GameAssetsDataHolder : ScriptableObject, IGameAssetData
+    public class GameAssetDataHolder : ScriptableObject, IGameAssetData
     {
         #region Fields
 

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91c0961dfd0141e0b6d9a7561752a352, type: 3}
+  m_Name: LocationObjectReferencesHolder
+  m_EditorClassIdentifier: 
+  objectReferencesById:
+    ItemKeys:
+    - TestLocation
+    ItemValues:
+    - {fileID: 37626348919523798, guid: bddda5527beba064c9b1e12eb2aba881, type: 3}

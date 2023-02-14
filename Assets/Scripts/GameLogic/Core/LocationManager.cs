@@ -31,7 +31,7 @@ namespace GameLogic.Core
 
             _currentLocationView = locationView;
             Vector3 characterSpawnPoint = locationView.CharacterSpawnPoints["SpawnPoint"].position;
-            
+            _unitManager.AddUnit(EnumUnitType.Character, characterSpawnPoint);
         }
     }
 }

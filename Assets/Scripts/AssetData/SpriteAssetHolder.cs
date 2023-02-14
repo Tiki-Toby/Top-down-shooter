@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace AssetData
 {
-    [CreateAssetMenu(fileName = "UIViewsPrefabHolder", menuName = "GameAssetsData/Holders/UIViewsPrefabHolder")]
+    [CreateAssetMenu(fileName = "SpriteAssetHolder", menuName = "GameAssetsData/Holders/SpriteAssetHolder")]
     public class SpriteAssetHolder : BaseObjectReferenceHolder<Sprite>
     {
     }

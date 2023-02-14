@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace AssetData
 {
-    [CreateAssetMenu(fileName = "LocationObjectReferencesHolder", menuName = "TileEditor/Location Object References Holder")]
+    [CreateAssetMenu(fileName = "LocationObjectReferencesHolder", menuName = "GameAssetsData/Holders/LocationObjectReferencesHolder")]
     public class LocationObjectReferencesHolder : BaseObjectReferenceHolder<LocationView>
     {
     }

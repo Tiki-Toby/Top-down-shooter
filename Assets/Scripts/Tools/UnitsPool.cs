@@ -26,7 +26,7 @@ namespace Tools
 
         public UnitController GetNextController(Vector3 position)
         {
-            if (!_pooledUnits.TryPeek(out var unitController))
+            if (_pooledUnits.TryPeek(out var unitController))
             {
                 unitController.ViewController.SetActive(true);
                 unitController.ViewController.SetPosition(position);

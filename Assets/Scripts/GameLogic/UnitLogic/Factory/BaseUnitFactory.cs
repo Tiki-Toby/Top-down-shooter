@@ -11,7 +11,7 @@ namespace GameLogic.UnitLogic.Factory
         public BaseUnitFactory(IGameAssetData gameAssetData, string parentName)
         {
             _gameAssetData = gameAssetData;
-            _parentTransform = new GameObject().transform;
+            _parentTransform = new GameObject(parentName).transform;
         }
         
         public abstract UnitController CreateUnitController(Vector3 position);

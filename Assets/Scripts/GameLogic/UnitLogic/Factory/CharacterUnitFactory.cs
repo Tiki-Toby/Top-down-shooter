@@ -21,7 +21,7 @@ namespace GameLogic.UnitLogic.Factory
             viewController.SetPosition(position);
             
             var moveController = new InputMoveController();
-            var lookController = new InputLookDirectionController();
+            var lookController = new InputLookDirectionController(viewController);
             var attackController = new InputAttackController();
             return new UnitController(viewController, moveController, lookController, attackController);
         }

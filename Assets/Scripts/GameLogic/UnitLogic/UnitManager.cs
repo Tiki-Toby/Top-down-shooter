@@ -33,6 +33,9 @@ namespace GameLogic.UnitLogic
 
             foreach (EnumUnitType unitType in Enum.GetValues(typeof(EnumUnitType)))
             {
+                if(unitType == EnumUnitType.Undefined)
+                    continue;
+                
                 BaseUnitFactory factory = _unitFactoryCreator.GetUnitFactoryByType(unitType);
                 _units.Add(unitType, new UnitsPool(factory));
             }

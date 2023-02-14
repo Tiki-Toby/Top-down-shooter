@@ -1,4 +1,5 @@
-﻿using AssetData;
+﻿using System;
+using AssetData;
 using Game.Ui.WindowManager;
 using Game.Ui.WindowManager.WindowFactory;
 using GameLogic.UnitLogic;
@@ -22,6 +23,10 @@ namespace GameLogic.Core
 
             _unitManager = new UnitManager(gameAssetDataHolder);
             _locationManager = new LocationManager(gameAssetDataHolder, _unitManager);
+        }
+
+        private void Start()
+        {
             _locationManager.LoadLocation("TestLocation");
         }
 

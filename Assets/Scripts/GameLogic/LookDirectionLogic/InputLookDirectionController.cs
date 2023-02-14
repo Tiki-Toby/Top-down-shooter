@@ -11,10 +11,11 @@ namespace GameLogic.LookDirectionLogic
         
         public override void UpdateLookDirection()
         {
-            Vector2 playerPosition = ViewController.UnitView.transform.position;
-            Vector2 pointerPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 playerPosition = ViewController.UnitView.transform.position; 
+            Vector2 screenPosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
 
-            SetLookDirection((pointerPosition - playerPosition).normalized);
+            SetLookDirection((worldPosition - playerPosition).normalized);
         }
     }
 }

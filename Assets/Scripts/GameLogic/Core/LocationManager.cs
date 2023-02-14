@@ -1,5 +1,6 @@
 ﻿using AssetData;
 using GameLogic.UnitLogic;
+using HairyEngine.HairyCamera;
 using Location;
 using UnityEngine;
 
@@ -31,7 +32,9 @@ namespace GameLogic.Core
 
             _currentLocationView = locationView;
             Vector3 characterSpawnPoint = locationView.CharacterSpawnPoints["SpawnPoint"].position;
-            _unitManager.AddUnit(EnumUnitType.Character, characterSpawnPoint);
+            UnitController characterUnitController = _unitManager.AddUnit(EnumUnitType.Character, characterSpawnPoint);
+            
+            CameraHandler.Instance.AddTarget(characterUnitController.ViewController.UnitView.transform);
         }
     }
 }

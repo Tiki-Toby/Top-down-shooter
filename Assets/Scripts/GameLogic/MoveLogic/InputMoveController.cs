@@ -12,10 +12,11 @@ namespace GameLogic.MoveLogic
         public Vector2 CurrentVelocityVector => _currentVelocity;
         public bool IsMovement => CurrentVelocity == 0;
 
-        public float MaxVelocity => ConstantsVelocity.DefaultMaxUnitVelocity;
+        public float MaxVelocity { get; }
 
-        public InputMoveController()
+        public InputMoveController(float maxVelocity)
         {
+            MaxVelocity = maxVelocity;
             _currentVelocity = Vector2.zero;
         }
         

@@ -3,13 +3,14 @@ using GameLogic.AnimationLogic;
 using GameLogic.AttackLogic;
 using GameLogic.LookDirectionLogic;
 using GameLogic.MoveLogic;
+using GameLogic.UnitDescription;
 using UnityEngine;
 
 namespace GameLogic.UnitLogic.Factory
 {
     public class CharacterUnitFactory : BaseUnitFactory
     {
-        public CharacterUnitFactory(IGameAssetData gameAssetData) : base(gameAssetData, "CharacterPool")
+        public CharacterUnitFactory(IGameAssetData gameAssetData, BulletManager bulletManager) : base(gameAssetData, bulletManager, "CharacterPool")
         {
         }
 
@@ -20,10 +21,13 @@ namespace GameLogic.UnitLogic.Factory
             ViewController viewController = new ViewController(characterInstance);
             viewController.SetPosition(position);
             
-            var moveController = new InputMoveController();
+            var moveController = new InputMoveController(characterInstance.UnitDefaultData.MaxVelocity);
             var lookController = new InputLookDirectionController(viewController);
-            var attackController = new InputAttackController();
-            return new UnitController(viewController, moveController, lookController, attackController);
+            var attackController = new InputAttackController(_bulletManager);
+
+            var unitDataController = new UnitDataController(characterInstance.UnitDefaultData, characterInstance.UnitAttackData);
+            
+            return new UnitController(viewController, moveController, lookController, attackController, unitDataController);
         }
     }
 }

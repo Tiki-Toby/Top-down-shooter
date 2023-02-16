@@ -2,6 +2,7 @@
 using GameLogic.AttackLogic;
 using GameLogic.LookDirectionLogic;
 using GameLogic.MoveLogic;
+using GameLogic.UnitDescription;
 
 namespace GameLogic.UnitLogic
 {
@@ -9,20 +10,26 @@ namespace GameLogic.UnitLogic
     {
         private readonly IMoveController _moveController;
         private readonly ALookDirectionController _lookDirectionController;
-        private readonly IAttackController _attackController;
+        private readonly BaseAttackController _attackController;
         private readonly ViewController _viewController;
+        private readonly UnitDataController _unitDataController;
 
         public ViewController ViewController => _viewController;
+        public UnitDataController UnitDataController => _unitDataController;
 
         public UnitController(ViewController viewController,
             IMoveController moveController,
             ALookDirectionController lookDirectionController,
-            IAttackController attackController)
+            BaseAttackController attackController,
+            UnitDataController unitDataController)
         {
             _viewController = viewController;
+            _viewController.UnitView.TakeDamage.AddListener(TakeDamage);
+            
             _moveController = moveController;
             _lookDirectionController = lookDirectionController;
             _attackController = attackController;
+            _unitDataController = unitDataController;
         }
 
         public void Update()
@@ -30,7 +37,9 @@ namespace GameLogic.UnitLogic
             Move();
             Attack();
             _lookDirectionController.UpdateLookDirection();
+            
             _viewController.Update();
+            _unitDataController.Update();
         }
         
         private void Move()
@@ -39,9 +48,15 @@ namespace GameLogic.UnitLogic
             _viewController.Move(_moveController);
         }
 
+        private void TakeDamage(float damage)
+        {
+            _unitDataController.TakeDamage(damage);
+        }
+
         private void Attack()
         {
-            _attackController.Attack();
+            if(_unitDataController.IsAlive && _unitDataController.IsAttackPossible)
+                _attackController.Attack(ViewController.BulletSpawnPosition, _lookDirectionController.LookDirection, _unitDataController);
         }
     }
 }

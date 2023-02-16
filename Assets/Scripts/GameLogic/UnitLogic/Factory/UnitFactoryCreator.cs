@@ -1,18 +1,21 @@
 ﻿using System;
 using AssetData;
+using GameLogic.AttackLogic;
 
 namespace GameLogic.UnitLogic.Factory
 {
     public class UnitFactoryCreator
     {
         private readonly IGameAssetData _gameAssetData;
+        private readonly BulletManager _bulletManager;
 
         private readonly CharacterUnitFactory CharacterUnitFactory;
         
-        public UnitFactoryCreator(IGameAssetData gameAssetData)
+        public UnitFactoryCreator(IGameAssetData gameAssetData, BulletManager bulletManager)
         {
             _gameAssetData = gameAssetData;
-            CharacterUnitFactory = new CharacterUnitFactory(_gameAssetData);
+            _bulletManager = bulletManager;
+            CharacterUnitFactory = new CharacterUnitFactory(_gameAssetData, _bulletManager);
         }
 
         public BaseUnitFactory GetUnitFactoryByType(EnumUnitType unitType)

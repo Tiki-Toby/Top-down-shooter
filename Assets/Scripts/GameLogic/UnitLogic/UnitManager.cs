@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AssetData;
+using GameLogic.AttackLogic;
 using GameLogic.UnitLogic.Factory;
 using Tools;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace GameLogic.UnitLogic
     public class UnitManager
     {
         private readonly IGameAssetData _gameAssetData;
+        private readonly BulletManager _bulletManager;
         private readonly UnitFactoryCreator _unitFactoryCreator;
         private readonly Dictionary<EnumUnitType, UnitsPool> _units;
 
@@ -28,8 +30,9 @@ namespace GameLogic.UnitLogic
         public UnitManager(IGameAssetData gameAssetData)
         {
             _gameAssetData = gameAssetData;
+            _bulletManager = new BulletManager();
+            _unitFactoryCreator = new UnitFactoryCreator(_gameAssetData, _bulletManager);
             _units = new Dictionary<EnumUnitType, UnitsPool>();
-            _unitFactoryCreator = new UnitFactoryCreator(_gameAssetData);
 
             foreach (EnumUnitType unitType in Enum.GetValues(typeof(EnumUnitType)))
             {
@@ -48,6 +51,7 @@ namespace GameLogic.UnitLogic
 
         public void Update()
         {
+            _bulletManager.Update();
             foreach (var units in _units.Values)
             {
                 foreach (var unitController in units)

@@ -7,10 +7,10 @@ namespace HairyEngine.HairyCamera
     [Serializable]
     public class TargetController
     {
+        private Vector2 minSizes;
+        
         public Vector3 prevCenter { get; private set; }
         public Vector3 currentCenter { get; private set; }
-        [HideInInspector]
-        public Vector2 minSizes;
         public Vector3 velocity => currentCenter - prevCenter;
         public bool IsMovement
         {

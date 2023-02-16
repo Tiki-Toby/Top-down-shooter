@@ -49,6 +49,14 @@ namespace Tools
         
         public void Dispose()
         {
+            foreach (var pooledBullet in _pooledUnits)
+                GameObject.Destroy(pooledBullet.ViewController.UnitView.gameObject);
+            
+            foreach (var activeBullet in _activeUnits)
+                GameObject.Destroy(activeBullet.ViewController.UnitView.gameObject);
+            
+            _pooledUnits.Clear();
+            _activeUnits.Clear();
         }
 
         public IEnumerator<UnitController> GetEnumerator()

@@ -12,8 +12,98 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14851dfc68564a7ba038c8f9f8dcc266, type: 3}
   m_Name: UnitsAssetHolder
   m_EditorClassIdentifier: 
-  objectReferencesById:
-    ItemKeys:
-    - Character
-    ItemValues:
-    - {fileID: 5733735252070927811, guid: 38106888cbe0f0b46be1421ba5af4a2b, type: 3}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: objectReferencesById
+      Entry: 7
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[AssetManagement.ObjectReference,
+        Assembly-CSharp]], mscorlib
+    - Name: comparer
+      Entry: 7
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 12
+      Data: 2
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Character
+    - Name: $v
+      Entry: 7
+      Data: 2|AssetManagement.ObjectReference, Assembly-CSharp
+    - Name: reference
+      Entry: 7
+      Data: 3|UnityEngine.AddressableAssets.AssetReference, Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 38106888cbe0f0b46be1421ba5af4a2b
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Bandit
+    - Name: $v
+      Entry: 7
+      Data: 4|AssetManagement.ObjectReference, Assembly-CSharp
+    - Name: reference
+      Entry: 7
+      Data: 5|UnityEngine.AddressableAssets.AssetReference, Unity.Addressables
+    - Name: m_AssetGUID
+      Entry: 1
+      Data: 76537c8d9aa78a440b68a6734f986dc2
+    - Name: m_SubObjectName
+      Entry: 1
+      Data: 
+    - Name: m_SubObjectType
+      Entry: 1
+      Data: 
+    - Name: m_EditorAssetChanged
+      Entry: 5
+      Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 

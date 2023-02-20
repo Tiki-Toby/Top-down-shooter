@@ -1,7 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using AssetData;
 using Game.Ui.WindowManager.WindowFactory;
+using GameFlow.Client.Infrastructure;
+using GameLogic.UnitLogic;
+using UI.Bars;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Ui.WindowManager
 {
@@ -26,12 +31,16 @@ namespace Game.Ui.WindowManager
         private readonly List<Window> _openedWindows = new List<Window>();
         private readonly Dictionary<Type, Stack<Window>> _windowsPool = new Dictionary<Type, Stack<Window>>();
 
-        public Transform WindowRoot => _windowRoot;
-
         //--------------------------------------------------------------------------------------------------------------------------
         // Mono behaviours methods and singletone
 
         public static WindowsManager Instance { get; private set; }
+
+        [Inject]
+        public void Construct(IGameAssetData gameAssetData, IAssetInstantiator assetInstantiator)
+        {
+            _windowFactory =  new WindowAssetFactory(gameAssetData, assetInstantiator);;
+        }
 
         private void Awake()
         {

@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: e93ebfec3b1bd0a46902c1f91967747b
+  m_SerializeEntries:
+  - m_GUID: bddda5527beba064c9b1e12eb2aba881
+    m_Address: Assets/Content/Prefabs/Locations/TestLocation.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 76537c8d9aa78a440b68a6734f986dc2
+    m_Address: Assets/Content/Prefabs/Units/BanditUnit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 38106888cbe0f0b46be1421ba5af4a2b
+    m_Address: Assets/Content/Prefabs/Units/CahracterUnit.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 50c2664a286c0c54ca8f7a88fa5335db
+    m_Address: Assets/Content/Prefabs/UI/Bars/ChracterHpBar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 251087d584bbc424d871ef29124a0e6a
+    m_Address: Assets/Content/Prefabs/UI/Bars/BanditHpBar.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9f540e0b58830a74aa7b561db2cb7ea5, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 117f1b7ba7f18bd43823d966df5f8dd5, type: 2}
+    - {fileID: 11400000, guid: 334767781e279154d9812236b13d017b, type: 2}

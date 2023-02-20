@@ -1,4 +1,5 @@
 ﻿using System;
+using GameLogic.UnitLogic;
 
 namespace GameLogic.UnitDescription
 {
@@ -7,5 +8,6 @@ namespace GameLogic.UnitDescription
     {
         public float MaxHealth;
         public float MaxVelocity;
+        public EnumUnitType UnitType;
     }
 }

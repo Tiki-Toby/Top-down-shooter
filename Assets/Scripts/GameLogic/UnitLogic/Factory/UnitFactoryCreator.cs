@@ -1,5 +1,6 @@
 ﻿using System;
 using AssetData;
+using GameFlow.Client.Infrastructure;
 using GameLogic.AttackLogic;
 
 namespace GameLogic.UnitLogic.Factory
@@ -7,15 +8,24 @@ namespace GameLogic.UnitLogic.Factory
     public class UnitFactoryCreator
     {
         private readonly IGameAssetData _gameAssetData;
+        private readonly IAssetInstantiator _assetInstantiator;
         private readonly BulletManager _bulletManager;
+        private readonly AttackService _attackService;
 
-        private readonly CharacterUnitFactory CharacterUnitFactory;
+        private readonly CharacterUnitFactory _characterUnitFactory;
+        private readonly BanditUnitFactory _banditUnitFactory;
         
-        public UnitFactoryCreator(IGameAssetData gameAssetData, BulletManager bulletManager)
+        public UnitFactoryCreator(IGameAssetData gameAssetData, 
+            IAssetInstantiator assetInstantiator, 
+            BulletManager bulletManager, 
+            AttackService attackService)
         {
             _gameAssetData = gameAssetData;
+            _assetInstantiator = assetInstantiator;
             _bulletManager = bulletManager;
-            CharacterUnitFactory = new CharacterUnitFactory(_gameAssetData, _bulletManager);
+            _attackService = attackService;
+            _characterUnitFactory = new CharacterUnitFactory(_gameAssetData, _assetInstantiator, _bulletManager, _attackService);
+            _banditUnitFactory = new BanditUnitFactory(_gameAssetData, _assetInstantiator, _bulletManager, _attackService);
         }
 
         public BaseUnitFactory GetUnitFactoryByType(EnumUnitType unitType)
@@ -23,9 +33,9 @@ namespace GameLogic.UnitLogic.Factory
             switch (unitType)
             {
                 case EnumUnitType.Character:
-                    return CharacterUnitFactory;
+                    return _characterUnitFactory;
                 case EnumUnitType.Bandit:
-                    return CharacterUnitFactory;
+                    return _banditUnitFactory;
                 
                 default:
                     throw new ArgumentException("Unknown unit type for factory");

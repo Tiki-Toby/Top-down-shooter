@@ -1,4 +1,5 @@
 ﻿using GameLogic.AttackLogic;
+using GameLogic.UnitLogic;
 using UnityEngine;
 
 namespace GameLogic.UnitDescription
@@ -9,11 +10,15 @@ namespace GameLogic.UnitDescription
         private readonly UnitAttackData _unitAttackData;
         private readonly UnitData _unitData;
 
+        public EnumUnitType UnitType => _unitDefaultData.UnitType;
+        
         public float MaxVelocity => _unitDefaultData.MaxVelocity;
         public float Damage => _unitAttackData.Damage;
+        public float AgrZoneRadius => _unitAttackData.AgrZoneRadius;
         public float BulletLifeTime => _unitAttackData.BulletLifeTime;
         public float BulletVelocity => _unitAttackData.BulletVelocity;
         public BulletView BulletViewPrefab => _unitAttackData.BulletViewPrefab;
+        public float HpRatio => _unitData.HealthPoint / _unitDefaultData.MaxHealth;
 
         public bool IsAlive => _unitData.HealthPoint > 0f;
         public bool IsAttackPossible => _unitData.AttackCooldown <= 0f;

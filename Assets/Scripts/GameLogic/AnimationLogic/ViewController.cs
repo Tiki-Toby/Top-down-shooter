@@ -10,6 +10,7 @@ namespace GameLogic.AnimationLogic
         private readonly UnitView _unitView;
 
         public UnitView UnitView => _unitView;
+        public Vector2 UnitPosition => _unitView.transform.position;
         public Vector3 BulletSpawnPosition => _unitView.BulletSpawnPoint.position;
         
         public ViewController(UnitView unitView)
@@ -17,10 +18,11 @@ namespace GameLogic.AnimationLogic
             _unitView = unitView;
         }
 
-        public void Move(IMoveController moveController)
+        public void Move(BaseMoveController moveController)
         {
             _unitView.Rigidbody.AddForce(moveController.CurrentVelocityVector);
-            _unitView.Animator.SetFloat(ConstantsAnimationParameters.VelocityRatio, moveController.CurrentVelocity / moveController.MaxVelocity);
+            float velocityRatio = moveController.CurrentVelocity / moveController.UnitController.UnitDataController.MaxVelocity;
+            _unitView.Animator.SetFloat(ConstantsAnimationParameters.VelocityRatio, velocityRatio);
         }
 
         public void SetLookDirection(Vector2 direction)

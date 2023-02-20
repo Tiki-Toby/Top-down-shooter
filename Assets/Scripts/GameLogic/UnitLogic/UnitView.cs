@@ -10,7 +10,6 @@ namespace GameLogic.UnitLogic
         [SerializeField] private Animator _animator;
         [SerializeField] private SpriteRenderer _sprite;
         [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private EnumUnitType _enumUnitType;
 
         [Space] [Header("Unit Datas")]
         [SerializeField] private UnitDefaultData _unitDefaultData;
@@ -26,7 +25,6 @@ namespace GameLogic.UnitLogic
         public Animator Animator => _animator;
         public SpriteRenderer Sprite => _sprite;
         public Rigidbody2D Rigidbody => _rigidbody;
-        public EnumUnitType EnumUnitType => _enumUnitType;
 
         public UnitDefaultData UnitDefaultData => _unitDefaultData;
         public UnitAttackData UnitAttackData => _unitAttackData;

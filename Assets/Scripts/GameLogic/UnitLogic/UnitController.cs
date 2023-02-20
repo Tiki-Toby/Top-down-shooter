@@ -1,4 +1,5 @@
-﻿using GameLogic.AnimationLogic;
+﻿using System.Collections.Generic;
+using GameLogic.AnimationLogic;
 using GameLogic.AttackLogic;
 using GameLogic.LookDirectionLogic;
 using GameLogic.MoveLogic;
@@ -8,18 +9,20 @@ namespace GameLogic.UnitLogic
 {
     public class UnitController
     {
-        private readonly IMoveController _moveController;
-        private readonly ALookDirectionController _lookDirectionController;
+        private readonly BaseMoveController _moveController;
+        private readonly BaseLookDirectionController _lookDirectionController;
         private readonly BaseAttackController _attackController;
         private readonly ViewController _viewController;
         private readonly UnitDataController _unitDataController;
+
+        private readonly List<BaseAttackController> _modules;
 
         public ViewController ViewController => _viewController;
         public UnitDataController UnitDataController => _unitDataController;
 
         public UnitController(ViewController viewController,
-            IMoveController moveController,
-            ALookDirectionController lookDirectionController,
+            BaseMoveController moveController,
+            BaseLookDirectionController lookDirectionController,
             BaseAttackController attackController,
             UnitDataController unitDataController)
         {
@@ -44,7 +47,7 @@ namespace GameLogic.UnitLogic
         
         private void Move()
         {
-            _moveController.Move();
+            _moveController.UpdateMoveData();
             _viewController.Move(_moveController);
         }
 

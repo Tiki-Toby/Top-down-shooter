@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
-using Tools;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Location
 {
-    public class LocationView : MonoBehaviour
+    public class LocationView : SerializedMonoBehaviour
     {
-        [SerializeField] private InspectableDictionary<string, Transform> _characterSpawnPoints;
+        [SerializeField] private Dictionary<string, Transform> _characterSpawnPoints;
          
-        public InspectableDictionary<string, Transform> CharacterSpawnPoints => _characterSpawnPoints;
+        public Dictionary<string, Transform> CharacterSpawnPoints => _characterSpawnPoints;
     }
 }

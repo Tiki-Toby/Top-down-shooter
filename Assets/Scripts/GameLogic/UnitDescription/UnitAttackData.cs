@@ -7,6 +7,7 @@ namespace GameLogic.UnitDescription
     public struct UnitAttackData
     {
         public float AttackCooldown;
+        public float AgrZoneRadius;
         public float Damage;
         
         public float BulletLifeTime;

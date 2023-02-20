@@ -1,9 +1,10 @@
 ﻿using GameLogic.UnitDescription;
+using GameLogic.UnitLogic;
 using UnityEngine;
 
 namespace GameLogic.AttackLogic
 {
-    public abstract class BaseAttackController
+    public abstract class BaseAttackController : BaseUnitModuleController
     {
         protected readonly BulletManager _bulletManager;
         

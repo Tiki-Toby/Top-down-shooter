@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GameLogic.LookDirectionLogic
 {
-    public class InputLookDirectionController : ALookDirectionController
+    public class InputLookDirectionController : BaseLookDirectionController
     {
         public InputLookDirectionController(ViewController viewController) : base(viewController)
         {

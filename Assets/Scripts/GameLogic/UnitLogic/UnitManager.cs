@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using AssetData;
+using GameFlow.Client.Infrastructure;
 using GameLogic.AttackLogic;
 using GameLogic.UnitLogic.Factory;
 using Tools;
@@ -8,12 +10,15 @@ using UnityEngine;
 
 namespace GameLogic.UnitLogic
 {
-    public class UnitManager
+    public class UnitManager : IEnumerable<UnitController>
     {
         private readonly IGameAssetData _gameAssetData;
-        private readonly BulletManager _bulletManager;
+        private readonly IAssetInstantiator _assetInstantiator;
+        private readonly AttackService _attackService;
         private readonly UnitFactoryCreator _unitFactoryCreator;
         private readonly Dictionary<EnumUnitType, UnitsPool> _units;
+
+        public UnitsPool this[EnumUnitType type] => _units[type];
 
         public UnitController CharacterUnit
         {
@@ -27,11 +32,12 @@ namespace GameLogic.UnitLogic
             }
         }
 
-        public UnitManager(IGameAssetData gameAssetData)
+        public UnitManager(AttackService attackService, 
+            UnitFactoryCreator unitFactoryCreator)
         {
-            _gameAssetData = gameAssetData;
-            _bulletManager = new BulletManager();
-            _unitFactoryCreator = new UnitFactoryCreator(_gameAssetData, _bulletManager);
+            _attackService = attackService;
+            _unitFactoryCreator = unitFactoryCreator;
+            
             _units = new Dictionary<EnumUnitType, UnitsPool>();
 
             foreach (EnumUnitType unitType in Enum.GetValues(typeof(EnumUnitType)))
@@ -51,14 +57,27 @@ namespace GameLogic.UnitLogic
 
         public void Update()
         {
-            _bulletManager.Update();
-            foreach (var units in _units.Values)
+            _attackService.Reset();
+            foreach (var unit in this)
             {
-                foreach (var unitController in units)
-                {
-                    unitController.Update();
-                }
+                _attackService.FindTarget(this, unit);
             }
+            foreach (var unit in this)
+            {
+                unit.Update();
+            }
+        }
+
+        public IEnumerator<UnitController> GetEnumerator()
+        {
+            foreach (var unitPool in _units.Values)
+                foreach (var unit in unitPool)
+                    yield return unit;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

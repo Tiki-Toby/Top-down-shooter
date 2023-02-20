@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using GameLogic.AttackLogic;
-using GameLogic.UnitLogic;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,7 +11,6 @@ namespace Tools
     {
         private readonly Transform _parent;
         private readonly BulletView _bulletPrefab;
-        private readonly UnitManager _unitManager;
         private readonly LinkedList<BulletView> _activeBullets;
         private readonly Stack<BulletView> _pooledBullets;
 

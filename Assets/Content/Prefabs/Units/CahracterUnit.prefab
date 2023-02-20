@@ -420,12 +420,13 @@ MonoBehaviour:
   _animator: {fileID: 2435574376400461901}
   _sprite: {fileID: 5602896007113191405}
   _rigidbody: {fileID: 8379513494825227135}
-  _enumUnitType: 1
   _unitDefaultData:
     MaxHealth: 100
     MaxVelocity: 5
+    UnitType: 1
   _unitAttackData:
     AttackCooldown: 0.2
+    AgrZoneRadius: 0
     Damage: 10
     BulletLifeTime: 5
     BulletVelocity: 30

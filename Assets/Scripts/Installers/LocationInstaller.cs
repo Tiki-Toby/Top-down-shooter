@@ -1,4 +1,5 @@
-﻿using GameLogic.Core;
+﻿using Core;
+using Location;
 using Zenject;
 
 namespace Installers

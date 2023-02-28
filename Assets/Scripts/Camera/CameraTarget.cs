@@ -8,7 +8,7 @@ using UnityEngine;
 namespace HairyEngine.HairyCamera
 {
     [Serializable]
-    public class CameraTarget2D
+    public class CameraTarget
     {
         public Vector3 TargetPosition => _target.position;
         public Transform TargetTransform => _target;
@@ -16,7 +16,7 @@ namespace HairyEngine.HairyCamera
         [SerializeField]
         private Transform _target;
 
-        public CameraTarget2D(Transform target)
+        public CameraTarget(Transform target)
         {
             this._target = target;
         }

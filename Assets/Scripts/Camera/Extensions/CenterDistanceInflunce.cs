@@ -17,7 +17,7 @@ namespace HairyEngine.HairyCamera
         {
             if (enabled)
             {
-                var direction = BaseCameraController.Targets.velocity.normalized;
+                var direction = BaseCameraController.Targets.Velocity.normalized;
 
                 var hInfluence = direction.x * MaxHorizontalInfluence;
                 var vInfluence = direction.y * MaxVerticalInfluence;

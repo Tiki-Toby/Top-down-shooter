@@ -1,5 +1,5 @@
 ﻿using AssetManagement;
-using GameLogic.UnitLogic;
+using Units.UnitLogic;
 using UnityEngine;
 
 namespace AssetData

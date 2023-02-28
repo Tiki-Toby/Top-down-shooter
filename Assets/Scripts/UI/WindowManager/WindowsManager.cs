@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AssetData;
 using Game.Ui.WindowManager.WindowFactory;
 using GameFlow.Client.Infrastructure;
-using GameLogic.UnitLogic;
+using Units.UnitLogic;
 using UI.Bars;
 using UnityEngine;
 using Zenject;

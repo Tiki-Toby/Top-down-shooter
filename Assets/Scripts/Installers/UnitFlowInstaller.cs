@@ -1,6 +1,6 @@
-﻿using GameLogic.AttackLogic;
-using GameLogic.UnitLogic;
-using GameLogic.UnitLogic.Factory;
+﻿using Units.AttackLogic;
+using Units.UnitLogic;
+using Units.UnitLogic.Factory;
 using Zenject;
 
 namespace Installers

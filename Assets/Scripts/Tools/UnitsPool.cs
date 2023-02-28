@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using GameLogic.UnitLogic;
-using GameLogic.UnitLogic.Factory;
+using Units.UnitLogic;
+using Units.UnitLogic.Factory;
 using UnityEngine;
 
 namespace Tools

@@ -1,6 +1,6 @@
 ﻿using AssetData;
 using GameFlow.Client.Infrastructure;
-using GameLogic.Core;
+using Core;
 using UnityEngine;
 using Zenject;
 

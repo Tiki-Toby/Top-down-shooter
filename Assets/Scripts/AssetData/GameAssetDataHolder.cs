@@ -1,7 +1,7 @@
 ﻿using AssetManagement;
 using AssetManagement.Extensions;
 using Game.Ui.WindowManager;
-using GameLogic.UnitLogic;
+using Units.UnitLogic;
 using Location;
 using UI.Bars;
 using UnityEngine;

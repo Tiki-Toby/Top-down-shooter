@@ -19,23 +19,7 @@ namespace HairyEngine.HairyCamera
     {
         Vector3 HandlePositionChange(Vector3 newPosition);
     }
-    public interface IDeltaPositionChanger : ICameraComponent
-    {
-        Vector3 AdjustDelta(Vector3 deltaMove);
-    }
-    public interface IPostMove : ICameraComponent
-    {
-        void HandleStopMove(Vector3 position);
-    }
-    public interface IPostZoom : ICameraComponent
-    {
-        void HandleZoomChange(Vector2 newSize);
-    }
-
-    public interface IViewSizeDeltaChange : ICameraComponent
-    {
-        float AdjustSize(float deltaSize);
-    }
+    
     public interface IViewSizeChanged : ICameraComponent
     {
         float HandleSizeChanged(float newSize);

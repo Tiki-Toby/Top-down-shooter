@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace HairyEngine.HairyCamera
 {
@@ -33,13 +34,13 @@ namespace HairyEngine.HairyCamera
                 return nextSize;
 
             // If the camera is bounded, reset the easing
-            if (_previousCamSize == BaseCameraController.ScreenSizeInWorldCoordinates.y)
+            if (Math.Abs(_previousCamSize - BaseCameraController.ScreenSizeInWorldCoordinates.y) < 0.1f)
                 _zoomVelocity = 0f;
 
             var currentSize = BaseCameraController.ScreenSizeInWorldCoordinates.y;
             var targetSize = currentSize;
 
-            _currentVelocity = BaseCameraController.Targets.velocity.magnitude / Time.deltaTime;
+            _currentVelocity = BaseCameraController.Targets.Velocity.magnitude / Time.deltaTime;
             // Zoom out
             if (_currentVelocity > CamVelocityForZoomIn)
             {

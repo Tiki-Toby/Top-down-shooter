@@ -7,18 +7,19 @@ namespace HairyEngine.HairyCamera
 {
     public class CameraHandler : MonoBehaviour
     {
-        public float high = 10f;
-        public bool followHorizontal = true;
-        public float horizontalFollowSmoothness = 10f;
+        [SerializeField] private float high = 10f;
+        [SerializeField] private bool followHorizontal = true;
+        [SerializeField] private float horizontalFollowSmoothness = 10f;
+         
+        [SerializeField] private bool followVertical = true;
+        [SerializeField] private float verticalFollowSmoothness = 10f;
 
-        public bool followVertical = true;
-        public float verticalFollowSmoothness = 10f;
-
-        public float zoomFollowSmoothness = 20f;
-
-        public float offsetX;
-        public float offsetY;
-        public bool isOffsetConsider = true;
+        [SerializeField] private float cameraTargetSize = 10f;
+        [SerializeField] private float zoomFollowSmoothness = 20f;
+         
+        [SerializeField] private float offsetX;
+        [SerializeField] private float offsetY;
+        [SerializeField] private bool isOffsetConsider = true;
         
         [SerializeField] private bool isCenterOnTargetOnStart;
         [SerializeField] private TargetController targetController;
@@ -33,18 +34,13 @@ namespace HairyEngine.HairyCamera
         private Vector3 _prevCameraPos;
 
         private List<IPreMove> _preMoveActions;
-        private List<IPostMove> _postMoveActions;
-        private List<IPostZoom> _postZoomActions;
-        private List<IDeltaPositionChanger> _deltaPositionChangers;
         private List<IPositionChanged> _positionChangers;
-        private List<IViewSizeDeltaChange> _deltaViewSizeChangers;
         private List<IViewSizeChanged> _viewSizeChangers;
 
         public Camera GameCamera => _gameCamera;
         public TargetController Targets => targetController;
         public float PrevVelocity { get; private set; }
         public Vector3 CameraTargetPosition { get; private set; }
-        public float CameraTargetSize { get; private set; }
         public Vector2 ScreenSizeInWorldCoordinates { get; private set; }
         public Vector3 CameraPosition => _transform.position;
         
@@ -74,8 +70,7 @@ namespace HairyEngine.HairyCamera
             InitExtensionDelegates();
 
             CalculateScreenSize();
-            CameraTargetSize = 10;
-            SetScreenSize(CameraTargetSize);
+            SetScreenSize(cameraTargetSize);
             if (isCenterOnTargetOnStart)
                 CenterOnTarget();
         }
@@ -83,7 +78,7 @@ namespace HairyEngine.HairyCamera
         public void CenterOnTarget()
         {
             targetController.Update();
-            _transform.position = new Vector3(targetController.currentCenter.x, targetController.currentCenter.y, -high);
+            _transform.position = new Vector3(targetController.CurrentCenter.x, targetController.CurrentCenter.y, -high);
         }
 
         private void Update()
@@ -95,27 +90,15 @@ namespace HairyEngine.HairyCamera
         
         private void Zoom()
         {
-            // Cycle through the size delta changers
-            var deltaSize = 0f;
-            foreach (IViewSizeDeltaChange viewSizeDeltaChange in _deltaViewSizeChangers)
-                deltaSize = viewSizeDeltaChange.AdjustSize(deltaSize);
+            var newSize = Mathf.Max(Targets.OrthographicSize, cameraTargetSize);
 
-            // Calculate the new size
-            var newSize = ScreenSizeInWorldCoordinates.y + deltaSize;
-            // Cycle through the size overriders
             foreach (IViewSizeChanged viewSizeChanger in _viewSizeChangers)
             {
                 newSize = viewSizeChanger.HandleSizeChanged(newSize);
             }
 
-            // Apply the new size
             if (Math.Abs(newSize - ScreenSizeInWorldCoordinates.y) > 0.001f)
                 SetScreenSize(newSize);
-
-            foreach (IPostZoom postZoomAction in _postZoomActions)
-            {
-                postZoomAction.HandleZoomChange(ScreenSizeInWorldCoordinates);
-            }
         }
         
         private void Move()
@@ -123,7 +106,7 @@ namespace HairyEngine.HairyCamera
             _prevCameraPos = _transform.position;
 
             foreach (IPreMove preMoveAction in _preMoveActions)
-                preMoveAction.HandleStartMove(targetController.currentCenter);
+                preMoveAction.HandleStartMove(targetController.CurrentCenter);
 
             if (_exclusiveTargetPosition.HasValue)
             {
@@ -133,8 +116,8 @@ namespace HairyEngine.HairyCamera
             }
             else
             {
-                var cameraTargetPositionX = followHorizontal ? targetController.currentCenter.x : _transform.position.x;
-                var cameraTargetPositionY = followVertical ? targetController.currentCenter.y : _transform.position.y;
+                var cameraTargetPositionX = followHorizontal ? targetController.CurrentCenter.x : _transform.position.x;
+                var cameraTargetPositionY = followVertical ? targetController.CurrentCenter.y : _transform.position.y;
                 CameraTargetPosition = new Vector3(cameraTargetPositionX, cameraTargetPositionY, -high);
                 
                 //Calculate influences
@@ -148,26 +131,21 @@ namespace HairyEngine.HairyCamera
                 CameraTargetPosition += new Vector3(followHorizontal ? offsetX : 0, followVertical ? offsetY : 0);
             
             // Calculate the base delta movement
-            var horizontalDeltaMovement = Mathf.Lerp(_transform.position.x, CameraTargetPosition.x, horizontalFollowSmoothness * Time.deltaTime);
+            var position = _transform.position;
+            var horizontalDeltaMovement = Mathf.Lerp(position.x, CameraTargetPosition.x, horizontalFollowSmoothness * Time.deltaTime);
             var verticalDeltaMovement = Mathf.Lerp(transform.position.y, CameraTargetPosition.y, verticalFollowSmoothness * Time.deltaTime);
 
-            horizontalDeltaMovement -= _transform.position.x;
-            verticalDeltaMovement -= _transform.position.y;
+            horizontalDeltaMovement -= position.x;
+            verticalDeltaMovement -= position.y;
             var deltaPosition = new Vector3(horizontalDeltaMovement, verticalDeltaMovement);
 
             PrevVelocity = deltaPosition.magnitude;
 
-            foreach (IDeltaPositionChanger positionChanger in _deltaPositionChangers)
-                deltaPosition = positionChanger.AdjustDelta(deltaPosition);
-
-            Vector3 newPosition = _transform.position + deltaPosition;
+            Vector3 newPosition = position + deltaPosition;
             foreach (IPositionChanged positionChanger in _positionChangers)
                 newPosition = positionChanger.HandlePositionChange(newPosition);
 
             _transform.position = newPosition;
-
-            foreach (IPostMove postMoveAction in _postMoveActions)
-                postMoveAction.HandleStopMove(newPosition);
         }
         
         void SetScreenSize(float newSize)
@@ -178,10 +156,13 @@ namespace HairyEngine.HairyCamera
             }
             else
             {
-                _transform.localPosition = new Vector3(
-                    _transform.localPosition.x,
-                    _transform.localPosition.y,
+                var localPosition = _transform.localPosition;
+                localPosition = new Vector3(
+                    localPosition.x,
+                    localPosition.y,
                     newSize / Mathf.Tan(GameCamera.fieldOfView * 0.5f * Mathf.Deg2Rad));
+                
+                _transform.localPosition = localPosition;
             }
 
             ScreenSizeInWorldCoordinates = new Vector2(newSize * GameCamera.aspect, newSize);
@@ -225,17 +206,13 @@ namespace HairyEngine.HairyCamera
             var width = (p2 - p1).magnitude / 2f;
             var hight = (p3 - p2).magnitude / 2f;
             ScreenSizeInWorldCoordinates = new Vector2(width, hight);
-            CameraTargetSize = hight;
+            cameraTargetSize = hight;
         }
         
         private void InitExtensionDelegates()
         {
             _preMoveActions = SortCameraComponents<IPreMove>();
-            _postMoveActions = SortCameraComponents<IPostMove>();
-            _postZoomActions = SortCameraComponents<IPostZoom>();
-            _deltaPositionChangers = SortCameraComponents<IDeltaPositionChanger>();
             _positionChangers = SortCameraComponents<IPositionChanged>();
-            _deltaViewSizeChangers = SortCameraComponents<IViewSizeDeltaChange>();
             _viewSizeChangers = SortCameraComponents<IViewSizeChanged>();
         }
     }

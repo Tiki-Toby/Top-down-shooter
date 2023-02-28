@@ -1,57 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HairyEngine.HairyCamera
 {
     [Serializable]
     public class TargetController
     {
-        private Vector2 minSizes;
+        [SerializeField] List<CameraTarget> targets;
+        private Vector2 _minSizes;
         
-        public Vector3 prevCenter { get; private set; }
-        public Vector3 currentCenter { get; private set; }
-        public Vector3 velocity => currentCenter - prevCenter;
+        public Vector3 PrevCenter { get; private set; }
+        public Vector3 CurrentCenter { get; private set; }
+        public Vector3 Velocity => CurrentCenter - PrevCenter;
+
+        public Vector2 MinScreenSize => _minSizes;
+        public float OrthographicSize => Mathf.Max(_minSizes.y, _minSizes.x * Screen.currentResolution.height / Screen.currentResolution.width / 1.7f);
+        
         public bool IsMovement
         {
             get
             {
-                Vector3 deltaCenter = currentCenter - prevCenter;
+                Vector3 deltaCenter = CurrentCenter - PrevCenter;
                 deltaCenter.y = 0;
                 return deltaCenter.magnitude > 0.02f;
             }
         }
 
-        [SerializeField] List<CameraTarget2D> _targets;
 
         public TargetController()
         {
-            _targets = new List<CameraTarget2D>();
-            currentCenter = Vector3.zero;
-            prevCenter = Vector3.zero;
-            minSizes = Vector3.zero;
+            targets = new List<CameraTarget>();
+            CurrentCenter = Vector3.zero;
+            PrevCenter = Vector3.zero;
+            _minSizes = Vector3.zero;
         }
 
         public void Update()
         {
-            prevCenter = currentCenter;
-            if (_targets.Count == 0)
+            PrevCenter = CurrentCenter;
+            if (targets.Count == 0)
                 return;
 
-            currentCenter = Vector2.zero;
-            Vector3 position = _targets[0].TargetPosition;
+            CurrentCenter = Vector2.zero;
+            Vector3 position = targets[0].TargetPosition;
             Vector2 width = Vector2.one * position.x;
             Vector2 height = Vector2.one * position.y;
-            foreach (CameraTarget2D cameraTarget2D in _targets)
+            
+            foreach (CameraTarget cameraTarget2D in targets)
             {
                 if (cameraTarget2D.TargetTransform == null)
                 {
-                    _targets.Remove(cameraTarget2D);
+                    targets.Remove(cameraTarget2D);
                     continue;
                 }
 
                 position = cameraTarget2D.TargetPosition;
-                currentCenter += cameraTarget2D.TargetPosition;
+                CurrentCenter += cameraTarget2D.TargetPosition;
+                
                 if (position.x > width.y)
                     width.y = position.x;
                 else if (position.x < width.x)
@@ -63,28 +70,26 @@ namespace HairyEngine.HairyCamera
                     height.x = position.y;
             }
 
-            currentCenter /= _targets.Count;
-            minSizes.x = width.y - width.x;
-            minSizes.x = minSizes.x > 10f ? minSizes.x : 10f;
-            minSizes.y = height.y - height.x;
-            minSizes.y = minSizes.y > 10f ? minSizes.y : 10f;
+            CurrentCenter /= targets.Count;
+            _minSizes.x = width.y - width.x;
+            _minSizes.y = height.y - height.x;
         }
 
         public void AddTarget(Transform target)
         {
-            _targets.Add(new CameraTarget2D(target));
+            targets.Add(new CameraTarget(target));
             Update();
-            prevCenter = currentCenter;
+            PrevCenter = CurrentCenter;
         }
         
         public void SetNewCurrentPosition(Vector3 newCurrentCenterPosition) =>
-            currentCenter = newCurrentCenterPosition;
+            CurrentCenter = newCurrentCenterPosition;
         
         public void RemoveTarget(Transform target)
         {
-            foreach(CameraTarget2D cameraTarget in _targets)
+            foreach(CameraTarget cameraTarget in targets)
                 if(cameraTarget.TargetTransform.Equals(target))
-                    _targets.Remove(cameraTarget);
+                    targets.Remove(cameraTarget);
         }
     }
 }

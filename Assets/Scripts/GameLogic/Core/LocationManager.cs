@@ -1,6 +1,4 @@
 ﻿using AssetData;
-using AssetManagement;
-using GameFlow.Client.Infrastructure;
 using GameLogic.UnitLogic;
 using HairyEngine.HairyCamera;
 using Location;
@@ -11,24 +9,21 @@ namespace GameLogic.Core
     public class LocationManager
     {
         private readonly IGameAssetData _gameAssetData;
-        private readonly IAssetInstantiator _assetInstantiator;
         private readonly UnitManager _unitManager;
 
         private LocationView _currentLocationView;
 
         public LocationManager(IGameAssetData gameAssetData,
-            IAssetInstantiator assetInstantiator,
             UnitManager unitManager)
         {
             _gameAssetData = gameAssetData;
-            _assetInstantiator = assetInstantiator;
             _unitManager = unitManager;
         }
 
         public void LoadLocation(string locationId)
         { 
-            ObjectReference locationViewPrefab = _gameAssetData.GetLocationObject(locationId);
-            LocationView locationView = _assetInstantiator.Instantiate<LocationView>(locationViewPrefab);
+            var locationViewPrefab = _gameAssetData.GetLocationObject(locationId);
+            LocationView locationView = GameObject.Instantiate<LocationView>(locationViewPrefab);
 
             if (_currentLocationView != null)
             {

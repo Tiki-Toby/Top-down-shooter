@@ -3,7 +3,7 @@
 namespace AssetData
 {
     [CreateAssetMenu(fileName = "SoundPrefabHolder", menuName = "GameAssetsData/Holders/SoundPrefabHolder")]
-    public class SoundPrefabHolder : BaseReferenceObjectHolder
+    public class SoundPrefabHolder : BaseObjectHolder<AudioClip>
     {
     }
 }

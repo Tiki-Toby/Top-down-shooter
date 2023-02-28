@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace UI.Bars
 {
-    public class HpBarsView : MonoBehaviour
+    public class HpBarView : MonoBehaviour
     {
         [SerializeField] private Image fillImage;
 

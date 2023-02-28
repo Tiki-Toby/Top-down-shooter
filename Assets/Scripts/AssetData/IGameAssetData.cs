@@ -1,5 +1,7 @@
-﻿using AssetManagement;
+﻿using Game.Ui.WindowManager;
 using GameLogic.UnitLogic;
+using Location;
+using UI.Bars;
 using UnityEngine;
 
 namespace AssetData
@@ -7,10 +9,10 @@ namespace AssetData
     public interface IGameAssetData
     {
         Sprite GetSpriteById(string assetId);
-        ObjectReference GetSoundReferenceById(string assetId);
-        ObjectReference GetUiViewObjectReferenceById(string assetId);
-        ObjectReference GetLocationObject(string locationObjectId);
-        ObjectReference GetUnitView(EnumUnitType unitTypeId);
-        ObjectReference GetBarView(EnumUnitType unitTypeId);
+        AudioClip GetSoundReferenceById(string assetId);
+        Window GetUiViewObjectReferenceById(string assetId);
+        LocationView GetLocationObject(string locationObjectId);
+        UnitView GetUnitView(EnumUnitType unitTypeId);
+        HpBarView GetBarView(EnumUnitType unitTypeId);
     }
 }

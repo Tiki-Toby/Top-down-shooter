@@ -2,7 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AssetData;
-using GameFlow.Client.Infrastructure;
 using GameLogic.AttackLogic;
 using GameLogic.UnitLogic.Factory;
 using Tools;
@@ -13,7 +12,6 @@ namespace GameLogic.UnitLogic
     public class UnitManager : IEnumerable<UnitController>
     {
         private readonly IGameAssetData _gameAssetData;
-        private readonly IAssetInstantiator _assetInstantiator;
         private readonly AttackService _attackService;
         private readonly UnitFactoryCreator _unitFactoryCreator;
         private readonly Dictionary<EnumUnitType, UnitsPool> _units;

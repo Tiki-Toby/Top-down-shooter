@@ -3,7 +3,7 @@ using UnityEngine;
 namespace AssetData
 {
     [CreateAssetMenu(fileName = "SpriteAssetHolder", menuName = "GameAssetsData/Holders/SpriteAssetHolder")]
-    public class SpriteAssetHolder : BaseReferenceObjectHolder
+    public class SpriteAssetHolder : BaseObjectHolder<Sprite>
     {
     }
 }

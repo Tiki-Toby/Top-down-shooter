@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using AssetData;
-using GameFlow.Client.Infrastructure;
 using GameLogic.UnitLogic;
 using HairyEngine.HairyCamera;
 using UnityEngine;
@@ -13,19 +12,16 @@ namespace UI.Bars
         [SerializeField] private Transform parent;
         
         private IGameAssetData _gameAssetData;
-        private IAssetInstantiator _assetInstantiator;
         private UnitManager _unitManager;
-        private Dictionary<UnitController, HpBarsView> _views;
+        private Dictionary<UnitController, HpBarView> _views;
 
         [Inject]
         public void Construct(IGameAssetData gameAssetData,
-            IAssetInstantiator assetInstantiator,
             UnitManager unitManager)
         {
             _gameAssetData = gameAssetData;
-            _assetInstantiator = assetInstantiator;
             _unitManager = unitManager;
-            _views = new Dictionary<UnitController, HpBarsView>();
+            _views = new Dictionary<UnitController, HpBarView>();
         }
 
         public void Update()
@@ -48,10 +44,10 @@ namespace UI.Bars
             }
         }
 
-        private HpBarsView InitHpBar(UnitController unit)
+        private HpBarView InitHpBar(UnitController unit)
         {
             var hpBarsView = _gameAssetData.GetBarView(unit.UnitDataController.UnitType);
-            HpBarsView barInstance = _assetInstantiator.Instantiate<HpBarsView>(hpBarsView, unit.ViewController.UnitPosition, Quaternion.identity, parent);
+            HpBarView barInstance = GameObject.Instantiate<HpBarView>(hpBarsView, unit.ViewController.UnitPosition, Quaternion.identity, parent);
             _views.Add(unit, barInstance);
 
             return barInstance;

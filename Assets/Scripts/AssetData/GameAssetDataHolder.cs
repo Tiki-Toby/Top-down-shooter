@@ -1,6 +1,4 @@
-﻿using AssetManagement;
-using AssetManagement.Extensions;
-using Game.Ui.WindowManager;
+﻿using Game.Ui.WindowManager;
 using GameLogic.UnitLogic;
 using Location;
 using UI.Bars;
@@ -13,7 +11,7 @@ namespace AssetData
     {
         #region Fields
 
-        [SerializeField] private LocationObjectHolder _locationObjectHolder;
+        [SerializeField] private LocationObjectHolder _locationObjectReferencesHolder;
         [SerializeField] private UIViewsPrefabHolder _uiViewsPrefabHolder;
         [SerializeField] private SoundPrefabHolder _soundPrefabHolder;
         [SerializeField] private SpriteAssetHolder _spriteAssetHolder;
@@ -26,32 +24,32 @@ namespace AssetData
 
         public Sprite GetSpriteById(string assetId)
         {
-            ObjectReference spriteReference = _spriteAssetHolder.GetReferenceWithId(assetId);
-            return spriteReference?.GetObject<Sprite>();
+            return _spriteAssetHolder.GetReferenceWithId(assetId);
         }
 
-        public ObjectReference GetSoundReferenceById(string assetId)
+        public AudioClip GetSoundReferenceById(string assetId)
         {
             return _soundPrefabHolder.GetReferenceWithId(assetId);
         }
 
-        public ObjectReference GetUiViewObjectReferenceById(string assetId)
+        public Window GetUiViewObjectReferenceById(string assetId)
         {
-           return _uiViewsPrefabHolder.GetReferenceWithId(assetId);
+            return _uiViewsPrefabHolder.GetReferenceWithId(assetId);
         }
 
-        public ObjectReference GetLocationObject(string locationObjectId)
+        public LocationView GetLocationObject(string locationObjectId)
         {
-            return _locationObjectHolder.GetReferenceWithId(locationObjectId);
+            return _locationObjectReferencesHolder.GetReferenceWithId(locationObjectId);
         }
 
-        public ObjectReference GetUnitView(EnumUnitType unitTypeId)
+        public UnitView GetUnitView(EnumUnitType unitTypeId)
         {
             string assetId = unitTypeId.ToString();
             return _unitsAssetHolder.GetReferenceWithId(assetId);
         }
 
-        public ObjectReference GetBarView(EnumUnitType unitTypeId)
+
+        public HpBarView GetBarView(EnumUnitType unitTypeId)
         {
             string assetId = unitTypeId.ToString();
             return _hpBarsHolder.GetReferenceWithId(assetId);

@@ -15,7 +15,9 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: -998944914442333064, guid: 50c2664a286c0c54ca8f7a88fa5335db, type: 3}
+    - {fileID: -998944914442333064, guid: 251087d584bbc424d871ef29124a0e6a, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -23,7 +25,7 @@ MonoBehaviour:
     SerializationNodes:
     - Name: objectReferencesById
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[AssetManagement.ObjectReference,
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[UI.Bars.HpBarView,
         Assembly-CSharp]], mscorlib
     - Name: comparer
       Entry: 7
@@ -42,29 +44,8 @@ MonoBehaviour:
       Entry: 1
       Data: Character
     - Name: $v
-      Entry: 7
-      Data: 2|AssetManagement.ObjectReference, Assembly-CSharp
-    - Name: reference
-      Entry: 7
-      Data: 3|UnityEngine.AddressableAssets.AssetReference, Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: 50c2664a286c0c54ca8f7a88fa5335db
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -75,29 +56,8 @@ MonoBehaviour:
       Entry: 1
       Data: Bandit
     - Name: $v
-      Entry: 7
-      Data: 4|AssetManagement.ObjectReference, Assembly-CSharp
-    - Name: reference
-      Entry: 7
-      Data: 5|UnityEngine.AddressableAssets.AssetReference, Unity.Addressables
-    - Name: m_AssetGUID
-      Entry: 1
-      Data: 251087d584bbc424d871ef29124a0e6a
-    - Name: m_SubObjectName
-      Entry: 1
-      Data: 
-    - Name: m_SubObjectType
-      Entry: 1
-      Data: 
-    - Name: m_EditorAssetChanged
-      Entry: 5
-      Data: false
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

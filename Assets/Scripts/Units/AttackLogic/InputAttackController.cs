@@ -1,28 +1,16 @@
-﻿using Units.UnitDescription;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Units.AttackLogic
 {
-    public class InputAttackController : BaseAttackController
+    public class InputAttackController : SimpleAttackController
     {
         public InputAttackController(BulletManager bulletManager) : base(bulletManager)
         {
         }
 
-        protected override void Attack()
+        protected override bool IsAdditionalAttackConditionHandle()
         {
-            if (Input.GetMouseButton(0))
-            {
-                Vector2 lookDirection = UnitController.ViewController.UnitLookDirection *
-                                        UnitController.UnitDataController.BulletVelocity;
-                
-                BulletManager.SpawnBullet(UnitController.UnitDataController.BulletViewPrefab, 
-                    UnitController.ViewController.BulletSpawnPosition, 
-                    lookDirection, 
-                    UnitController.UnitDataController.Damage,
-                    UnitController.UnitDataController.BulletLifeTime);
-                UnitController.UnitDataController.Shoot();
-            }
+            return Input.GetMouseButton(0);
         }
     }
 }

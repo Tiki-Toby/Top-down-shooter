@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace HairyEngine.HairyCamera
 {
@@ -15,7 +16,7 @@ namespace HairyEngine.HairyCamera
         [SerializeField] private float verticalFollowSmoothness = 10f;
 
         [SerializeField] private float cameraTargetSize = 10f;
-        [SerializeField] private float zoomFollowSmoothness = 20f;
+        [SerializeField] private float zoomLerpSmoothness = 20f;
          
         [SerializeField] private float offsetX;
         [SerializeField] private float offsetY;
@@ -90,15 +91,18 @@ namespace HairyEngine.HairyCamera
         
         private void Zoom()
         {
-            var newSize = Mathf.Max(Targets.OrthographicSize, cameraTargetSize);
-
+            var newTargetSize = Mathf.Max(Targets.OrthographicSize, cameraTargetSize);
+            
             foreach (IViewSizeChanged viewSizeChanger in _viewSizeChangers)
             {
-                newSize = viewSizeChanger.HandleSizeChanged(newSize);
+                newTargetSize = viewSizeChanger.HandleSizeChanged(newTargetSize);
             }
+            
+            if (Math.Abs(newTargetSize - ScreenSizeInWorldCoordinates.y) <= 0.001f)
+                return;
 
-            if (Math.Abs(newSize - ScreenSizeInWorldCoordinates.y) > 0.001f)
-                SetScreenSize(newSize);
+            float newSize = Mathf.Lerp(ScreenSizeInWorldCoordinates.y, newTargetSize, zoomLerpSmoothness);
+            SetScreenSize(newSize);
         }
         
         private void Move()

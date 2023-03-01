@@ -1,9 +1,9 @@
 ﻿using AssetData;
-using GameLogic.AnimationLogic;
-using GameLogic.AttackLogic;
-using GameLogic.LookDirectionLogic;
-using GameLogic.MoveLogic;
-using GameLogic.UnitDescription;
+using Units.AnimationLogic;
+using Units.AttackLogic;
+using Units.LookDirectionLogic;
+using Units.MoveLogic;
+using Units.UnitDescription;
 using UnityEngine;
 
 namespace Units.UnitLogic.Factory

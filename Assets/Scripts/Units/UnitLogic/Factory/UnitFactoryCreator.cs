@@ -1,15 +1,11 @@
 ﻿using System;
 using AssetData;
-using GameLogic.AttackLogic;
+using Units.AttackLogic;
 
 namespace Units.UnitLogic.Factory
 {
     public class UnitFactoryCreator
     {
-        private readonly IGameAssetData _gameAssetData;
-        private readonly BulletManager _bulletManager;
-        private readonly AttackService _attackService;
-
         private readonly CharacterUnitFactory _characterUnitFactory;
         private readonly BanditUnitFactory _banditUnitFactory;
         
@@ -17,11 +13,8 @@ namespace Units.UnitLogic.Factory
             BulletManager bulletManager, 
             AttackService attackService)
         {
-            _gameAssetData = gameAssetData;
-            _bulletManager = bulletManager;
-            _attackService = attackService;
-            _characterUnitFactory = new CharacterUnitFactory(_gameAssetData, _bulletManager, _attackService);
-            _banditUnitFactory = new BanditUnitFactory(_gameAssetData, _bulletManager, _attackService);
+            _characterUnitFactory = new CharacterUnitFactory(gameAssetData, bulletManager, attackService);
+            _banditUnitFactory = new BanditUnitFactory(gameAssetData, bulletManager, attackService);
         }
 
         public BaseUnitFactory GetUnitFactoryByType(EnumUnitType unitType)

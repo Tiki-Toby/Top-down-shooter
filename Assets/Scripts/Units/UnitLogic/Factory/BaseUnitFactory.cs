@@ -1,5 +1,5 @@
 ﻿using AssetData;
-using GameLogic.AttackLogic;
+using Units.AttackLogic;
 using UnityEngine;
 
 namespace Units.UnitLogic.Factory

@@ -1,7 +1,7 @@
 ﻿using Game.Ui.WindowManager;
-using GameLogic.UnitLogic;
 using Location;
 using UI.Bars;
+using Units.UnitLogic;
 using UnityEngine;
 
 namespace AssetData

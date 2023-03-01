@@ -359,7 +359,7 @@ SpriteRenderer:
   m_SortingOrder: 500
   m_Sprite: {fileID: 610449192, guid: fee52d5db0ea13349acc79fb2fda8842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 0.24, y: 0.24}
@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 8379513494825227135}
   - component: {fileID: 6751736614694782581}
   - component: {fileID: 2435574376400461901}
+  - component: {fileID: 7436029888591070085}
   m_Layer: 0
   m_Name: CahracterUnit
   m_TagString: Untagged
@@ -470,8 +471,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.13, y: -0.4}
-  m_Size: {x: 0.5, y: 0.4}
+  m_Offset: {x: 0.21844311, y: -0.5768839}
+  m_Size: {x: 0.58460253, y: 0.2923322}
   m_Direction: 1
 --- !u!95 &2435574376400461901
 Animator:
@@ -493,6 +494,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
+--- !u!70 &7436029888591070085
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420325731075260081}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.19611001, y: -0.1961097}
+  m_Size: {x: 1.2459882, y: 1.1152512}
+  m_Direction: 1
 --- !u!1 &8332227600613135559
 GameObject:
   m_ObjectHideFlags: 0

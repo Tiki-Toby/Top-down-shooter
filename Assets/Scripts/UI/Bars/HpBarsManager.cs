@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using AssetData;
-using GameLogic.UnitLogic;
 using HairyEngine.HairyCamera;
+using Units.UnitLogic;
 using UnityEngine;
 using Zenject;
 

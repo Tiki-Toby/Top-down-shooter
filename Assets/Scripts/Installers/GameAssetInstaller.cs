@@ -1,5 +1,5 @@
 ﻿using AssetData;
-using GameLogic.Core;
+using Core;
 using UnityEngine;
 using Zenject;
 

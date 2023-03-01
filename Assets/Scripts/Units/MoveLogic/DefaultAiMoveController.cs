@@ -1,4 +1,5 @@
 ﻿using Units.AttackLogic;
+using Units.UnitLogic;
 using UnityEngine;
 
 namespace Units.MoveLogic
@@ -14,9 +15,17 @@ namespace Units.MoveLogic
         
         protected override Vector2 UpdateDirection()
         {
-            return Vector2.up;
-            //_attackService.TryGetTarget(unit)
-            //return Vector2.ClampMagnitude(direction, 1f);
+            if (!_attackService.TryGetTarget(UnitController, out UnitController targetController))
+                return Vector2.zero;
+            
+            Vector2 unitPosition = UnitController.ViewController.UnitPosition; 
+            Vector2 targetPosition = targetController.ViewController.UnitPosition;
+            Vector2 distance = targetPosition - unitPosition;
+
+            if (distance.magnitude < 4f)
+                return Vector2.zero;
+
+            return distance.normalized;
         }
     }
 }

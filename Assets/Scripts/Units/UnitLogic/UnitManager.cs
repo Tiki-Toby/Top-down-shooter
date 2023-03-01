@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using AssetData;
-using GameLogic.AttackLogic;
-using GameLogic.UnitLogic.Factory;
 using Tools;
 using Units.AttackLogic;
 using Units.UnitLogic.Factory;
@@ -11,7 +9,7 @@ using UnityEngine;
 
 namespace Units.UnitLogic
 {
-    public class UnitManager : IEnumerable<UnitController>
+    public class UnitManager : IEnumerable<UnitController>, IEnumerable<IEnumerable<UnitController>>
     {
         private readonly IGameAssetData _gameAssetData;
         private readonly AttackService _attackService;
@@ -35,7 +33,7 @@ namespace Units.UnitLogic
             UnitFactoryCreator unitFactoryCreator)
         {
             _attackService = attackService;
-
+            _attackService.Init(this);
             _units = new Dictionary<EnumUnitType, UnitsPool>();
 
             foreach (EnumUnitType unitType in Enum.GetValues(typeof(EnumUnitType)))
@@ -58,12 +56,19 @@ namespace Units.UnitLogic
             _attackService.Reset();
             foreach (var unit in this)
             {
-                _attackService.FindTarget(this, unit);
+                _attackService.FindTarget(unit);
             }
+            
             foreach (var unit in this)
             {
                 unit.Update();
             }
+        }
+
+        IEnumerator<IEnumerable<UnitController>> IEnumerable<IEnumerable<UnitController>>.GetEnumerator()
+        {
+            foreach (var unitPool in _units.Values)
+                yield return unitPool;
         }
 
         public IEnumerator<UnitController> GetEnumerator()

@@ -1,6 +1,4 @@
-﻿using Units.UnitDescription;
-using Units.UnitLogic;
-using UnityEngine;
+﻿using Units.UnitLogic;
 
 namespace Units.AttackLogic
 {
@@ -8,7 +6,7 @@ namespace Units.AttackLogic
     {
         protected readonly BulletManager BulletManager;
 
-        public bool IsAttackPossible => UnitController.UnitDataController.IsAlive &&
+        public virtual bool IsAttackPossible => UnitController.UnitDataController.IsAlive &&
                                         UnitController.UnitDataController.IsAttackPossible;
         
         public BaseAttackController(BulletManager bulletManager)

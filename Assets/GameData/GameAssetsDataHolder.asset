@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b43912b78bf245938a52617bc37c41d1, type: 3}
   m_Name: GameAssetsDataHolder
   m_EditorClassIdentifier: Assembly-CSharp:AssetData:GameAssetsDataHolder
-  _locationObjectHolder: {fileID: 11400000, guid: 80801575fbd0c4241af9faaba0623490, type: 2}
+  _locationObjectReferencesHolder: {fileID: 11400000, guid: 80801575fbd0c4241af9faaba0623490, type: 2}
   _uiViewsPrefabHolder: {fileID: 11400000, guid: e6aec5d5369139e4691c1f2eeb1a0512, type: 2}
   _soundPrefabHolder: {fileID: 11400000, guid: 002be2b46d008e14f929b60cdcabe6c1, type: 2}
   _spriteAssetHolder: {fileID: 11400000, guid: 31e7ba77e44950b46a9e74490c4369bc, type: 2}

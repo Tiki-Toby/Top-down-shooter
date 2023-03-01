@@ -1,9 +1,9 @@
 ﻿using AssetData;
-using GameLogic.AnimationLogic;
-using GameLogic.AttackLogic;
-using GameLogic.LookDirectionLogic;
-using GameLogic.MoveLogic;
-using GameLogic.UnitDescription;
+using Units.AnimationLogic;
+using Units.AttackLogic;
+using Units.LookDirectionLogic;
+using Units.MoveLogic;
+using Units.UnitDescription;
 using UnityEngine;
 
 namespace Units.UnitLogic.Factory
@@ -26,9 +26,9 @@ namespace Units.UnitLogic.Factory
             var unitDataController = new UnitDataController(banditInstance.UnitDefaultData, banditInstance.UnitAttackData);
             var unitController = new UnitController(viewController, unitDataController);
             
-            unitController.AddUnitModule(new InputMoveController());
-            unitController.AddUnitModule(new InputLookDirectionController());
-            unitController.AddUnitModule(new InputAttackController(_bulletManager));
+            unitController.AddUnitModule(new DefaultAiMoveController(_attackService));
+            unitController.AddUnitModule(new AiLookDirectionController(_attackService));
+            unitController.AddUnitModule(new AiAttackController(_attackService, _bulletManager));
 
             return unitController;
         }

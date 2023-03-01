@@ -1,4 +1,4 @@
-﻿using Location;
+﻿using GameLogic.Core;
 using Units.AttackLogic;
 using Units.UnitLogic;
 using UnityEngine;

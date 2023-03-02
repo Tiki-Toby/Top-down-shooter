@@ -8,9 +8,11 @@ namespace Units.UnitLogic
         private readonly UnitModulesPool _unitModulesPool;
         private readonly ViewController _viewController;
         private readonly UnitDataController _unitDataController;
+        private readonly UnitEventController _unitEventController;
 
         public ViewController ViewController => _viewController;
         public UnitDataController UnitDataController => _unitDataController;
+        public UnitEventController UnitEventController => _unitEventController;
 
         public UnitController(ViewController viewController,
             UnitDataController unitDataController)
@@ -18,6 +20,7 @@ namespace Units.UnitLogic
             _viewController = viewController;
             _unitDataController = unitDataController;
             _unitModulesPool = new UnitModulesPool(this);
+            _unitEventController = new UnitEventController(this);
             
             _viewController.UnitView.TakeDamage.AddListener(TakeDamage);
         }
@@ -34,9 +37,19 @@ namespace Units.UnitLogic
             _unitModulesPool.AddUnitModule(module);
         }
 
+        public void Reset()
+        {
+            _unitDataController.Reset();
+            _unitEventController.Reset();
+        }
+
         private void TakeDamage(float damage)
         {
             _unitDataController.TakeDamage(damage);
+            _unitEventController.TakeDamage(damage);
+            
+            if(!_unitDataController.IsAlive)
+                _unitEventController.BeforeDestroy();
         }
     }
 }

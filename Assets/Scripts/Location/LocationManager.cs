@@ -1,6 +1,8 @@
 ﻿using AssetData;
+using Constants;
 using HairyEngine.HairyCamera;
 using Location;
+using Location.SpawnerLogic;
 using Units.UnitLogic;
 using UnityEngine;
 
@@ -10,6 +12,7 @@ namespace GameLogic.Core
     {
         private readonly IGameAssetData _gameAssetData;
         private readonly UnitManager _unitManager;
+        private readonly SpawnerManager _spawnerManager;
 
         private LocationView _currentLocationView;
 
@@ -18,26 +21,41 @@ namespace GameLogic.Core
         {
             _gameAssetData = gameAssetData;
             _unitManager = unitManager;
+            _spawnerManager = new SpawnerManager(unitManager);
         }
 
         public void LoadLocation(string locationId)
         { 
             var locationViewPrefab = _gameAssetData.GetLocationObject(locationId);
-            LocationView locationView = GameObject.Instantiate<LocationView>(locationViewPrefab);
+            LocationView locationView = Object.Instantiate(locationViewPrefab);
 
             if (_currentLocationView != null)
-            {
-                
-            }
+                UnloadLocation();
 
             _currentLocationView = locationView;
-            Vector3 characterSpawnPoint = locationView.CharacterSpawnPoints["SpawnPoint"].position;
+            RespawnPlayer();
+            _spawnerManager.Init(_currentLocationView.SpawnersObject);
+        }
+
+        public void Update()
+        {
+            _spawnerManager.Update();
+        }
+
+        public void UnloadLocation()
+        {
+            Object.Destroy(_currentLocationView.gameObject);
+            _spawnerManager.Dispose();
+        }
+
+        public void RespawnPlayer()
+        {
+            Vector3 characterSpawnPoint = _currentLocationView.CharacterSpawnPoints[ConstantsLocationNames.SpawnPoint].position;
             UnitController characterUnitController = _unitManager.AddUnit(EnumUnitType.Character, characterSpawnPoint);
+            characterUnitController.UnitEventController.OnUnitAfterDeadSubscribe(() => 
+                CameraHandler.Instance.RemoveTarget(characterUnitController.ViewController.UnitView.transform));
             
             CameraHandler.Instance.AddTarget(characterUnitController.ViewController.UnitView.transform);
-
-            Vector3 banditPosition = new Vector3(27.5244846f, 3.33341742f, -2.62396741f);
-            UnitController banditUnitController = _unitManager.AddUnit(EnumUnitType.Bandit, banditPosition);
         }
     }
 }

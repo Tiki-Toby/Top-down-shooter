@@ -199,6 +199,11 @@ namespace HairyEngine.HairyCamera
         {
             targetController.AddTarget(target);
         }
+
+        public void RemoveTarget(Transform target)
+        {
+            targetController.RemoveTarget(target);
+        }
         
         private void CalculateScreenSize()
         {

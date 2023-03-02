@@ -87,9 +87,14 @@ namespace HairyEngine.HairyCamera
         
         public void RemoveTarget(Transform target)
         {
-            foreach(CameraTarget cameraTarget in targets)
-                if(cameraTarget.TargetTransform.Equals(target))
-                    targets.Remove(cameraTarget);
+            for (int i = 0; i < targets.Count; i++)
+            {
+                if (targets[i].TargetTransform.Equals(target))
+                {
+                    targets.RemoveAt(i);
+                    return;
+                }
+            }
         }
     }
 }

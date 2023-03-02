@@ -1,4 +1,5 @@
-﻿using Units.AttackLogic;
+﻿using UniRx;
+using Units.AttackLogic;
 using Units.UnitLogic;
 using UnityEngine;
 
@@ -37,6 +38,12 @@ namespace Units.UnitDescription
         public void Update()
         {
             _unitData.AttackCooldown -= Time.deltaTime;
+        }
+
+        public void Reset()
+        {
+            _unitData.HealthPoint = _unitDefaultData.MaxHealth;
+            _unitData.AttackCooldown = 0f;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Units.UnitLogic
             {
                 UnitsPool characterUnitList = _units[EnumUnitType.Character];
                 if (characterUnitList.ActiveCount == 0)
-                    throw new Exception("Missed character unit, but still try to get access");
+                    return null;
 
                 return characterUnitList.FirstActive;
             }
@@ -48,7 +48,15 @@ namespace Units.UnitLogic
 
         public UnitController AddUnit(EnumUnitType unitType, Vector3 position)
         {
-            return _units[unitType].GetNextController(position);
+            var unit = _units[unitType].GetNextController(position);
+            unit.UnitEventController.OnUnitAfterDeadSubscribe(() => RemoveUnit(unit));
+            
+            return unit;
+        }
+
+        public void RemoveUnit(UnitController unitController)
+        {
+            _units[unitController.UnitDataController.UnitType].RemoveActiveUnitController(unitController);
         }
 
         public void Update()

@@ -29,14 +29,16 @@ namespace Core
 
         private void Update()
         {
-            if (_unitManager.CharacterUnit == null || !_unitManager.CharacterUnit.UnitDataController.IsAlive)
+            if (_unitManager.CharacterUnit == null)
             {
                 //reload level or show window about death
+                _locationManager.RespawnPlayer();
             }
             else
             {
                 _bulletManager.Update();
                 _unitManager.Update();
+                _locationManager.Update();
             }
         }
     }

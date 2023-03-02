@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Units.UnitLogic;
 using Units.UnitLogic.Factory;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Tools
 {
@@ -26,7 +27,7 @@ namespace Tools
 
         public UnitController GetNextController(Vector3 position)
         {
-            if (_pooledUnits.TryPeek(out var unitController))
+            if (_pooledUnits.TryPop(out var unitController))
             {
                 unitController.ViewController.SetActive(true);
                 unitController.ViewController.SetPosition(position);
@@ -34,15 +35,16 @@ namespace Tools
             else
             {
                 unitController = _unitFactory.CreateUnitController(position);
-                _activeUnits.AddFirst(unitController);
             }
-
+            
+            _activeUnits.AddFirst(unitController);
             return unitController;
         }
 
         public void RemoveActiveUnitController(UnitController unitController)
         {
             unitController.ViewController.SetActive(false);
+            unitController.Reset();
             _activeUnits.Remove(unitController);
             _pooledUnits.Push(unitController);
         }
@@ -50,10 +52,10 @@ namespace Tools
         public void Dispose()
         {
             foreach (var pooledBullet in _pooledUnits)
-                GameObject.Destroy(pooledBullet.ViewController.UnitView.gameObject);
+                Object.Destroy(pooledBullet.ViewController.UnitView.gameObject);
             
             foreach (var activeBullet in _activeUnits)
-                GameObject.Destroy(activeBullet.ViewController.UnitView.gameObject);
+                Object.Destroy(activeBullet.ViewController.UnitView.gameObject);
             
             _pooledUnits.Clear();
             _activeUnits.Clear();

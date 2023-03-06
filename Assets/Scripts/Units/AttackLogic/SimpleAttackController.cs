@@ -15,13 +15,13 @@ namespace Units.AttackLogic
         protected override void Attack()
         {
             Vector2 bulletForce = UnitController.ViewController.UnitLookDirection *
-                                  UnitController.UnitDataController.BulletVelocity;
+                                  UnitController.ViewController.BulletView.DefaultVelocity;
 
-            BulletManager.SpawnBullet(UnitController.UnitDataController.BulletViewPrefab,
+            BulletManager.SpawnBullet(UnitController.ViewController.BulletView,
                 UnitController.ViewController.BulletSpawnPosition,
                 bulletForce,
-                UnitController.UnitDataController.Damage,
-                UnitController.UnitDataController.BulletLifeTime);
+                UnitController.UnitDataController.Damage.Value,
+                UnitController.ViewController.BulletView.LifeTime);
             UnitController.UnitDataController.Shoot();
         }
     }

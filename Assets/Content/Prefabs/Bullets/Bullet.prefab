@@ -137,3 +137,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rigidbody: {fileID: 8817745006561120941}
+  _lifeTime: 3
+  _defaultVelocity: 15

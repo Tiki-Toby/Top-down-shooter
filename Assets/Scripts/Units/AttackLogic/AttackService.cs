@@ -42,7 +42,7 @@ namespace Units.AttackLogic
                 }
             }
 
-            if (minMagnitude < unit.UnitDataController.AgrZoneRadius && target != null)
+            if (minMagnitude < unit.UnitDataController.AgrZoneRadius.Value && target != null)
                 _targetsDictionary.Add(unit, target);
         }
         

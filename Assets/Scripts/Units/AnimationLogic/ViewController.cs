@@ -1,4 +1,5 @@
 ﻿using Constants;
+using Units.AttackLogic;
 using Units.MoveLogic;
 using Units.UnitLogic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Units.AnimationLogic
         private Vector2 _targetLookDirection;
 
         public UnitView UnitView => _unitView;
+        public BulletView BulletView => _unitView.UnitAttackData.BulletViewPrefab;
         public Vector2 UnitPosition => _unitView.transform.position;
         public Vector2 UnitLookDirection => _targetLookDirection;
         public Vector3 BulletSpawnPosition => _unitView.BulletSpawnPoint.position;
@@ -24,7 +26,7 @@ namespace Units.AnimationLogic
         public void Move(BaseMoveController moveController)
         {
             _unitView.Rigidbody.AddForce(moveController.CurrentVelocityVector);
-            float velocityRatio = moveController.CurrentVelocity / moveController.UnitController.UnitDataController.MaxVelocity;
+            float velocityRatio = moveController.CurrentVelocity / moveController.UnitController.UnitDataController.MaxVelocity.Value;
             _unitView.Animator.SetFloat(ConstantsAnimationParameters.VelocityRatio, velocityRatio);
         }
 

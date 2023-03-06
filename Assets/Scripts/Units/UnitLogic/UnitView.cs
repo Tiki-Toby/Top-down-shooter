@@ -12,8 +12,8 @@ namespace Units.UnitLogic
         [SerializeField] private Rigidbody2D _rigidbody;
 
         [Space] [Header("Unit Datas")]
-        [SerializeField] private UnitDefaultData _unitDefaultData;
-        [SerializeField] private UnitAttackData _unitAttackData;
+        [SerializeField] private UnitDefaultStructData _unitDefaultData;
+        [SerializeField] private UnitAttackStructData _unitAttackData;
 
         [Space] [Header("Unit Parts")] 
         [SerializeField] private Transform _handsTransform;
@@ -25,8 +25,8 @@ namespace Units.UnitLogic
         public SpriteRenderer Sprite => _sprite;
         public Rigidbody2D Rigidbody => _rigidbody;
 
-        public UnitDefaultData UnitDefaultData => _unitDefaultData;
-        public UnitAttackData UnitAttackData => _unitAttackData;
+        public UnitDefaultStructData UnitDefaultData => _unitDefaultData;
+        public UnitAttackStructData UnitAttackData => _unitAttackData;
         
         public Transform HandsTransform => _handsTransform;
         public Transform BulletSpawnPoint => _bulletSpawnPoint;

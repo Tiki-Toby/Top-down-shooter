@@ -1,4 +1,5 @@
-﻿using Units.AttackLogic;
+﻿using BuffLogic;
+using Units.AttackLogic;
 using Units.UnitLogic;
 using Units.UnitLogic.Factory;
 using Zenject;
@@ -13,6 +14,8 @@ namespace Installers
             Container.Bind<AttackService>().AsSingle();
             Container.Bind<BulletManager>().AsSingle();
             Container.Bind<UnitFactoryCreator>().AsSingle();
+
+            Container.Bind<BuffManager>().AsSingle();
         }
     }
 }

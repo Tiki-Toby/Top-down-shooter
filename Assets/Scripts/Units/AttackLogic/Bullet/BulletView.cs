@@ -8,11 +8,14 @@ namespace Units.AttackLogic
     public class BulletView : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rigidbody;
-        private float _lifeTime;
+        [SerializeField] private float _lifeTime;
+        [SerializeField] private float _defaultVelocity;
         private float _damage;
         private bool _isAlive;
 
         public bool IsAlive => _lifeTime >= Time.time && _isAlive;
+        public float LifeTime => _lifeTime;
+        public float DefaultVelocity => _defaultVelocity;
         public Rigidbody2D Rigidbody => _rigidbody;
 
         public void Init(float damage, float lifeTime)

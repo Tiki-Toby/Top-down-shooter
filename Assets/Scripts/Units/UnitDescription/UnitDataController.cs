@@ -1,4 +1,5 @@
-﻿using UniRx;
+﻿using BuffLogic;
+using UniRx;
 using Units.AttackLogic;
 using Units.UnitLogic;
 using UnityEngine;
@@ -12,27 +13,26 @@ namespace Units.UnitDescription
         private readonly UnitData _unitData;
 
         public EnumUnitType UnitType => _unitDefaultData.UnitType;
-        
-        public float MaxVelocity => _unitDefaultData.MaxVelocity;
-        public float Damage => _unitAttackData.Damage;
-        public float AgrZoneRadius => _unitAttackData.AgrZoneRadius;
-        public float BulletLifeTime => _unitAttackData.BulletLifeTime;
-        public float BulletVelocity => _unitAttackData.BulletVelocity;
-        public BulletView BulletViewPrefab => _unitAttackData.BulletViewPrefab;
-        public float HpRatio => _unitData.HealthPoint / _unitDefaultData.MaxHealth;
+
+        public BaseBuffableValue<float> MaxVelocity => _unitDefaultData.MaxVelocity;
+        public BaseBuffableValue<float> Damage => _unitAttackData.Damage;
+        public BaseBuffableValue<float> AgrZoneRadius => _unitAttackData.AgrZoneRadius;
+        public float HpRatio => _unitData.HealthPoint / _unitDefaultData.MaxHealth.Value;
 
         public bool IsAlive => _unitData.HealthPoint > 0f;
         public bool IsAttackPossible => _unitData.AttackCooldown <= 0f;
 
-        public UnitDataController(UnitDefaultData unitDefaultData,
-            UnitAttackData unitAttackData)
+        public UnitDataController(UnitDefaultStructData unitDefaultData,
+            UnitAttackStructData unitAttackData)
         {
-            _unitDefaultData = unitDefaultData;
-            _unitAttackData = unitAttackData;
-            _unitData = new UnitData(_unitDefaultData.MaxHealth);
+            _unitDefaultData = new UnitDefaultData(unitDefaultData);
+            _unitAttackData = new UnitAttackData(unitAttackData);
+            _unitData = new UnitData(unitDefaultData.MaxHealth);
+            
+            _unitDefaultData.MaxHealth.Subscribe(RecalcHp);
         }
 
-        public void Shoot() => _unitData.AttackCooldown = _unitAttackData.AttackCooldown;
+        public void Shoot() => _unitData.AttackCooldown = _unitAttackData.AttackCooldown.Value;
         public void TakeDamage(float damage) => _unitData.HealthPoint -= damage;
 
         public void Update()
@@ -42,8 +42,14 @@ namespace Units.UnitDescription
 
         public void Reset()
         {
-            _unitData.HealthPoint = _unitDefaultData.MaxHealth;
+            _unitData.HealthPoint = _unitDefaultData.MaxHealth.Value;
             _unitData.AttackCooldown = 0f;
+        }
+
+        private void RecalcHp(float maxHp)
+        {
+            if (_unitData.HealthPoint > maxHp)
+                _unitData.HealthPoint = maxHp;
         }
     }
 }

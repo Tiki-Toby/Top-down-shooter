@@ -1,44 +1,47 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 
 namespace Tools.PriorityTools
 {
-    public class PrioritizeLinkedList<T> : IEnumerable, IDisposable where T : IPrioritizatedModule
+    public class PrioritizeLinkedList<T> : BaseDisposable, IEnumerable<T> where T : IPrioritizatedModule
     {
-        private readonly LinkedList<T> _valueList;
+        protected readonly LinkedList<T> ValueList;
 
         public PrioritizeLinkedList()
         {
-            _valueList = new LinkedList<T>();
+            ValueList = new LinkedList<T>();
+            AddDisposableAction(() => ValueList.Clear());
         }
 
         public void Add(T value)
         {
-            for (var valueNode = _valueList.First; valueNode != null; valueNode = valueNode.Next)
+            for (var valueNode = ValueList.First; valueNode != null; valueNode = valueNode.Next)
             {
                 if (valueNode.Value.Priority == value.Priority || 
                     valueNode.Value.Priority > value.Priority)
                 {
-                    _valueList.AddBefore(valueNode, new LinkedListNode<T>(value));
+                    ValueList.AddBefore(valueNode, new LinkedListNode<T>(value));
                     return;
                 }
             }
+
+            if (ValueList.First == null)
+                ValueList.AddFirst(value);
         }
 
         public void Remove(T value)
         {
-            _valueList.Remove(value);
+            ValueList.Remove(value);
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<T> GetEnumerator()
         {
-            return _valueList.GetEnumerator();
+            return ValueList.GetEnumerator();
         }
 
-        public void Dispose()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            _valueList.Clear();
+            return GetEnumerator();
         }
     }
 }

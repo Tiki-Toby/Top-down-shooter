@@ -1,17 +1,18 @@
-﻿using System;
-using Units.AttackLogic;
+﻿using BuffLogic;
 
 namespace Units.UnitDescription
 {
-    [Serializable]
-    public struct UnitAttackData
+    public class UnitAttackData
     {
-        public float AttackCooldown;
-        public float AgrZoneRadius;
-        public float Damage;
-        
-        public float BulletLifeTime;
-        public float BulletVelocity;
-        public BulletView BulletViewPrefab;
+        public readonly BaseBuffableValue<float> AttackCooldown;
+        public readonly BaseBuffableValue<float> AgrZoneRadius;
+        public readonly BaseBuffableValue<float> Damage;
+
+        public UnitAttackData(UnitAttackStructData attackData)
+        {
+            AttackCooldown = new BaseBuffableValue<float>(attackData.AttackCooldown);
+            AgrZoneRadius = new BaseBuffableValue<float>(attackData.AgrZoneRadius);
+            Damage = new BaseBuffableValue<float>(attackData.Damage);
+        }
     }
 }

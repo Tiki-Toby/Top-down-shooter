@@ -19,7 +19,7 @@ namespace Units.MoveLogic
 
         public override void Invoke()
         {
-            _currentVelocity = UpdateDirection() * UnitController.UnitDataController.MaxVelocity;
+            _currentVelocity = UpdateDirection() * UnitController.UnitDataController.MaxVelocity.Value;
             UnitController.ViewController.Move(this);
         }
 

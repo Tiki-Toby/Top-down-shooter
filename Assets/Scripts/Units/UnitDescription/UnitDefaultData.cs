@@ -1,13 +1,19 @@
-﻿using System;
+﻿using BuffLogic;
 using Units.UnitLogic;
 
 namespace Units.UnitDescription
 {
-    [Serializable]
-    public struct UnitDefaultData
+    public class UnitDefaultData
     {
-        public float MaxHealth;
-        public float MaxVelocity;
-        public EnumUnitType UnitType;
+        public readonly BaseBuffableValue<float> MaxHealth;
+        public readonly BaseBuffableValue<float> MaxVelocity;
+        public readonly EnumUnitType UnitType;
+
+        public UnitDefaultData(UnitDefaultStructData data)
+        {
+            MaxHealth = new BaseBuffableValue<float>(data.MaxHealth);
+            MaxVelocity = new BaseBuffableValue<float>(data.MaxVelocity);
+            UnitType = data.UnitType;
+        }
     }
 }

@@ -33,11 +33,24 @@ namespace Core
 
         private void Update()
         {
+            #region TestRegion
+#if true
+           
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 MultiFloatValueBuff buff = new MultiFloatValueBuff(5f, 10f);
                 _buffManager.AddBuff(_unitManager.CharacterUnit.UnitDataController.MaxVelocity, buff);
             }
+            
+            if (Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                MultiFloatValueBuff buff = new MultiFloatValueBuff(100f);
+                buff.AddCondition(() => Input.GetKeyUp(KeyCode.LeftShift));
+                _buffManager.AddBuff(_unitManager.CharacterUnit.UnitDataController.MaxVelocity, buff);
+            }
+
+#endif
+            #endregion
             
             if (_unitManager.CharacterUnit == null)
             {

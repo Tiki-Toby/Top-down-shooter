@@ -29,7 +29,7 @@ namespace BuffLogic
             
             for (var valueNode = ValueList.First; valueNode != null; )
             {
-                if (valueNode.Value.EndConditionExec())
+                if (valueNode.Value.IsAlive)
                 {
                     wasUpdated = true;
 

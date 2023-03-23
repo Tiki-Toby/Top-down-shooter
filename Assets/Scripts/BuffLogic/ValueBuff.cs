@@ -2,7 +2,7 @@
 {
     public class AddFloatValueBuff : BaseValueBuff<float>
     {
-        public AddFloatValueBuff(float buffValue, float time = -1) : base(buffValue, time, 1)
+        public AddFloatValueBuff(float buffValue) : base(buffValue)
         {
         }
 
@@ -14,9 +14,8 @@
     public class MultiFloatValueBuff : BaseValueBuff<float>
     {
         //buffValue - percentage
-        public MultiFloatValueBuff(float buffValue, float time = -1) : base(1f + buffValue/100, time, 0)
+        public MultiFloatValueBuff(float buffValue) : base(1f + buffValue/100)
         {
-            
         }
 
         public override float ApplyBuff(float value) => value * BuffValue;

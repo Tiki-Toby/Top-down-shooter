@@ -38,14 +38,9 @@ namespace Core
            
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                MultiFloatValueBuff buff = new MultiFloatValueBuff(5f, 10f);
-                _buffManager.AddBuff(_unitManager.CharacterUnit.UnitDataController.MaxVelocity, buff);
-            }
-            
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                MultiFloatValueBuff buff = new MultiFloatValueBuff(100f);
-                buff.AddCondition(() => Input.GetKeyUp(KeyCode.LeftShift));
+                MultiFloatValueBuff buff = new MultiFloatValueBuff(5f);
+                TimerBuffCondition timerBuffCondition = new TimerBuffCondition(10f);
+                buff.AddCondition(timerBuffCondition);
                 _buffManager.AddBuff(_unitManager.CharacterUnit.UnitDataController.MaxVelocity, buff);
             }
 

@@ -6,8 +6,9 @@ namespace BuffLogic
     
     public interface IBuff<T> : IPrioritizatedModule, IBuff
     {
+        bool IsAlive { get; }
         T ApplyBuff(T value);
         T RevokeBuff(T value);
-        bool EndConditionExec();
+        void Update();
     }
 }

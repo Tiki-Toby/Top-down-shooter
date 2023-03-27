@@ -1,6 +1,8 @@
-﻿namespace BuffLogic
+﻿using System;
+
+namespace BuffLogic
 {
-    public interface IBuffCondition
+    public interface IBuffCondition : IDisposable
     {
         bool Invoke();
     }

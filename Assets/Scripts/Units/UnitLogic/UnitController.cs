@@ -1,9 +1,13 @@
-﻿using Units.AnimationLogic;
+﻿using System;
+using System.Collections.Generic;
+using BuffLogic;
+using Tools.PriorityTools;
+using Units.AnimationLogic;
 using Units.UnitDescription;
 
 namespace Units.UnitLogic
 {
-    public class UnitController
+    public class UnitController : IBuffableValue<UnitController>
     {
         private readonly UnitModulesPool _unitModulesPool;
         private readonly ViewController _viewController;
@@ -43,13 +47,26 @@ namespace Units.UnitLogic
             _unitEventController.Reset();
         }
 
-        private void TakeDamage(float damage)
+        public void TakeDamage(float damage)
         {
             _unitDataController.TakeDamage(damage);
             _unitEventController.TakeDamage(damage);
             
             if(!_unitDataController.IsAlive)
                 _unitEventController.BeforeDestroy();
+        }
+
+        public void UpdateAddBuff(PrioritizeLinkedList<IBuff<UnitController>> buffs, IBuff<UnitController> addedBuff)
+        {
+            addedBuff.ApplyBuff(this);
+        }
+
+        public void UpdateRemoveBuffs(PrioritizeLinkedList<IBuff<UnitController>> buffs, IEnumerable<IBuff<UnitController>> removedBuffs)
+        {
+            foreach (var removedBuff in removedBuffs)
+            {
+                removedBuff.ApplyBuff(this);
+            }
         }
     }
 }

@@ -17,10 +17,10 @@ namespace Units.UnitDescription
         public BaseBuffableValue<float> MaxVelocity => _unitDefaultData.MaxVelocity;
         public BaseBuffableValue<float> Damage => _unitAttackData.Damage;
         public BaseBuffableValue<float> AgrZoneRadius => _unitAttackData.AgrZoneRadius;
-        public float HpRatio => _unitData.HealthPoint / _unitDefaultData.MaxHealth.Value;
+        public float HpRatio => _unitData.HealthPoint.Value / _unitDefaultData.MaxHealth.Value;
 
-        public bool IsAlive => _unitData.HealthPoint > 0f;
-        public bool IsAttackPossible => _unitData.AttackCooldown <= 0f;
+        public bool IsAlive => _unitData.HealthPoint.Value > 0f;
+        public bool IsAttackPossible => _unitData.AttackCooldown.Value <= 0f;
 
         public UnitDataController(UnitDefaultStructData unitDefaultData,
             UnitAttackStructData unitAttackData)
@@ -32,24 +32,24 @@ namespace Units.UnitDescription
             _unitDefaultData.MaxHealth.Subscribe(RecalcHp);
         }
 
-        public void Shoot() => _unitData.AttackCooldown = _unitAttackData.AttackCooldown.Value;
-        public void TakeDamage(float damage) => _unitData.HealthPoint -= damage;
+        public void Shoot() => _unitData.AttackCooldown.Value = _unitAttackData.AttackCooldown.Value;
+        public void TakeDamage(float damage) => _unitData.HealthPoint.Value -= damage;
 
         public void Update()
         {
-            _unitData.AttackCooldown -= Time.deltaTime;
+            _unitData.AttackCooldown.Value -= Time.deltaTime;
         }
 
         public void Reset()
         {
-            _unitData.HealthPoint = _unitDefaultData.MaxHealth.Value;
-            _unitData.AttackCooldown = 0f;
+            _unitData.HealthPoint.Value = _unitDefaultData.MaxHealth.Value;
+            _unitData.AttackCooldown.Value = 0f;
         }
 
         private void RecalcHp(float maxHp)
         {
-            if (_unitData.HealthPoint > maxHp)
-                _unitData.HealthPoint = maxHp;
+            if (_unitData.HealthPoint.Value > maxHp)
+                _unitData.HealthPoint.Value = maxHp;
         }
     }
 }

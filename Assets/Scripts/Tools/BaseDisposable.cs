@@ -11,6 +11,7 @@ namespace Tools
         public BaseDisposable()
         {
             _disposables = new List<IDisposable>();
+            _onDispose = null;
         }
 
         public T AddDisposable<T>(T disposable) where T : IDisposable
@@ -29,7 +30,10 @@ namespace Tools
             foreach (var disposable in _disposables)
                 disposable.Dispose();
             
-            _onDispose.Invoke();
+            _disposables.Clear();
+            
+            _onDispose?.Invoke();
+            _onDispose = null;
         }
     }
 }

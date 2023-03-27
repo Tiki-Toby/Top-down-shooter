@@ -36,9 +36,15 @@ namespace Core
             #region TestRegion
 #if true
            
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                PoisonBuff buff = new PoisonBuff(20, 1f);
+                _buffManager.AddBuff(_unitManager.CharacterUnit, buff);
+            }
+           
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                MultiFloatValueBuff buff = new MultiFloatValueBuff(5f);
+                MultiFloatValueBuff buff = new MultiFloatValueBuff(100f);
                 TimerBuffCondition timerBuffCondition = new TimerBuffCondition(10f);
                 buff.AddCondition(timerBuffCondition);
                 _buffManager.AddBuff(_unitManager.CharacterUnit.UnitDataController.MaxVelocity, buff);

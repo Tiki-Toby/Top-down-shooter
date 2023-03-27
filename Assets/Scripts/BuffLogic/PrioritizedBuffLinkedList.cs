@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Tools.PriorityTools;
+using UnityEngine;
 
 namespace BuffLogic
 {
@@ -7,7 +9,7 @@ namespace BuffLogic
     {
         private readonly List<IBuff<TValue>> _removedBuffs;
         private readonly IBuffableValue<TValue> _buffableValueTarget;
-        
+
         public bool IsAlive => ValueList.Count > 0;
 
         public PrioritizedBuffLinkedList(IBuffableValue<TValue> buffableValue)
@@ -26,16 +28,17 @@ namespace BuffLogic
         {
             _removedBuffs.Clear();
             bool wasUpdated = false;
-            
-            for (var valueNode = ValueList.First; valueNode != null; )
+
+            for (var valueNode = ValueList.First; valueNode != null;)
             {
-                if (valueNode.Value.IsAlive)
+                TryToUpdateBuff(valueNode.Value);
+                if (valueNode.Value.IsEndConditionDone)
                 {
                     wasUpdated = true;
 
                     var nextNode = valueNode.Next;
                     _removedBuffs.Add(valueNode.Value);
-                    
+
                     ValueList.Remove(valueNode);
                     valueNode = nextNode;
                 }
@@ -43,8 +46,21 @@ namespace BuffLogic
                     valueNode = valueNode.Next;
             }
 
-            if(wasUpdated)
+            if (wasUpdated)
                 _buffableValueTarget.UpdateRemoveBuffs(this, _removedBuffs);
+
+        }
+
+        private void TryToUpdateBuff(IBuff<TValue> buff)
+        {
+            try
+            {
+                buff.Update();
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("Buff's update failed with exception: " + e.Message);
+            }
         }
     }
 }

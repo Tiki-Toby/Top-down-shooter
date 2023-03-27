@@ -6,9 +6,10 @@ namespace BuffLogic
     
     public interface IBuff<T> : IPrioritizatedModule, IBuff
     {
-        bool IsAlive { get; }
+        bool IsEndConditionDone { get; }
         T ApplyBuff(T value);
         T RevokeBuff(T value);
         void Update();
+        void MergeBuffs<TBuff>(TBuff buff) where TBuff : IBuff<T>;
     }
 }

@@ -12,12 +12,10 @@ namespace BuffLogic
     public class BaseBuffManager<TValue> : BaseDisposable, IBaseBuffManager
     {
         private readonly Dictionary<IBuffableValue<TValue>, PrioritizedBuffLinkedList<TValue>> _buffs;
-        private readonly List<IBuffableValue<TValue>> _removableBuffableValues;
 
         public BaseBuffManager()
         {
-            _buffs = new Dictionary<IBuffableValue<TValue>, PrioritizedBuffLinkedList<TValue>>();
-            _removableBuffableValues = new List<IBuffableValue<TValue>>();
+            _buffs = new Dictionary<IBuffableValue<TValue>, PrioritizedBuffLinkedList<TValue>>(5);
         }
 
         public void AddBuff(IBuffableValue<TValue> targetValue, IBuff<TValue> buff)
@@ -41,16 +39,7 @@ namespace BuffLogic
             foreach (var buffValuePair in _buffs)
             {
                 buffValuePair.Value.Update();
-                if(!buffValuePair.Value.IsAlive)
-                    _removableBuffableValues.Add(buffValuePair.Key);
             }
-
-            foreach (var removableBuffableValue in _removableBuffableValues)
-            {
-                _buffs.Remove(removableBuffableValue);
-            }
-            
-            _removableBuffableValues.Clear();
         }
     }
 }

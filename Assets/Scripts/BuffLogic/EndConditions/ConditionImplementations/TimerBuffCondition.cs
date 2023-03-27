@@ -1,10 +1,11 @@
 ﻿using System;
+using Tools;
 using UniRx;
 using UnityEngine;
 
 namespace BuffLogic
 {
-    public class TimerBuffCondition : IBuffCondition
+    public class TimerBuffCondition : BaseDisposable, IBuffCondition
     {
         private readonly IReactiveProperty<float> _timerProperty;
 
@@ -15,7 +16,7 @@ namespace BuffLogic
 
         public void Subscribe(Action<float> onChangeAction)
         {
-            _timerProperty.Subscribe(onChangeAction);
+            AddDisposable(_timerProperty.Subscribe(onChangeAction));
         }
         
         public bool Invoke()

@@ -8,7 +8,10 @@
             {
                 var nextNode = conditionNode.Next;
                 if (conditionNode.Value.Invoke())
+                {
+                    conditionNode.Value.Dispose();
                     Conditions.Remove(conditionNode);
+                }
                 
                 conditionNode = nextNode;
             }

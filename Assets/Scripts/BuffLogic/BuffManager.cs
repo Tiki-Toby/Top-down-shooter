@@ -4,7 +4,7 @@ using Tools;
 
 namespace BuffLogic
 {
-    public class BuffManager : BaseDisposable
+    public sealed class BuffManager : BaseDisposable
     {
         private readonly Dictionary<Type, IBaseBuffManager> _buffManagers;
 
@@ -20,6 +20,10 @@ namespace BuffLogic
             {
                 buffManager = AddDisposable(new BaseBuffManager<TValue>());
                 _buffManagers.Add(typeof(TValue), buffManager);
+            }
+            else
+            {
+                
             }
             
             buffManager.AddBuff(targetValue, buff);

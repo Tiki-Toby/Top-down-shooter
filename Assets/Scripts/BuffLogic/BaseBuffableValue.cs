@@ -13,7 +13,11 @@ namespace BuffLogic
         private readonly ReactiveProperty<TValue> _value;
         private readonly TValue _defaultValue;
 
-        public TValue Value => _value.Value;
+        public TValue Value
+        {
+            get => _value.Value;
+            set => _value.Value = value;
+        }
 
         #endregion
 

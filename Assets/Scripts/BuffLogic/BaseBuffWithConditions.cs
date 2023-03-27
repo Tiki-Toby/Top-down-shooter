@@ -9,7 +9,8 @@ namespace BuffLogic
         private int _priority;
         
         public int Priority => _priority;
-        public bool IsAlive => !_buffConditionsCollection.IsEndConditionCorrect;
+        
+        public bool IsEndConditionDone => _buffConditionsCollection.IsEndConditionDone;
 
         protected BaseBuffWithConditions(EBuffConditionCollectionType buffConditionCollectionType, int priority = int.MaxValue)
         {
@@ -18,18 +19,26 @@ namespace BuffLogic
         }
 
         public abstract T ApplyBuff(T value);
-        public abstract T RevokeBuff(T value);
         
+        public abstract T RevokeBuff(T value);
+
         public void Update()
         {
             _buffConditionsCollection.Update();
+        }
+
+        public abstract void MergeBuffs<TBuff>(TBuff buff) where TBuff : IBuff<T>;
+
+        protected void MergeConditions<TBuff>(TBuff buff) where TBuff : BaseBuffWithConditions<T>
+        {
+            _buffConditionsCollection.MergeConditions(buff._buffConditionsCollection);
         }
 
         public void ForceSetPriority(int priority)
         {
             _priority = priority;
         }
-        
+
         public void AddCondition(IBuffCondition condition)
         {
             _buffConditionsCollection.AddCondition(condition);

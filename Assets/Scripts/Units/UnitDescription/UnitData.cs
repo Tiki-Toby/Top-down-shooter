@@ -1,14 +1,16 @@
-﻿namespace Units.UnitDescription
+﻿using BuffLogic;
+
+namespace Units.UnitDescription
 {
     public class UnitData
     {
-        public float HealthPoint;
-        public float AttackCooldown;
+        public BaseBuffableValue<float> HealthPoint;
+        public BaseBuffableValue<float> AttackCooldown;
 
         public UnitData(float healthPoint)
         {
-            HealthPoint = healthPoint;
-            AttackCooldown = 0f;
+            HealthPoint = new BaseBuffableValue<float>(healthPoint);
+            AttackCooldown = new BaseBuffableValue<float>(0f);
         }
     }
 }

@@ -1,18 +1,30 @@
 ﻿using System.Collections.Generic;
+using Tools;
 
 namespace BuffLogic
 {
-    public abstract class ABuffConditionsCollection
+    public abstract class ABuffConditionsCollection : BaseDisposable
     {        
         protected readonly LinkedList<IBuffCondition> Conditions;
-        private bool _isEndConditionCorrect;
+        private bool _isEndConditionDone;
 
-        public bool IsEndConditionCorrect => _isEndConditionCorrect;
+        public bool IsEndConditionDone => _isEndConditionDone;
 
         protected ABuffConditionsCollection()
         {
             Conditions = new LinkedList<IBuffCondition>();
-            _isEndConditionCorrect = true;
+            AddDisposableAction(DisposeConditions);
+            _isEndConditionDone = false;
+        }
+
+        public void MergeConditions(ABuffConditionsCollection conditionCollection)
+        {
+            Dispose();
+            
+            foreach (var condition in conditionCollection.Conditions)
+                Conditions.AddFirst(condition);
+
+            _isEndConditionDone = false;
         }
 
         public void AddCondition(IBuffCondition condition)
@@ -22,9 +34,18 @@ namespace BuffLogic
 
         public void Update()
         {
-            _isEndConditionCorrect = InvokeEndConditions();
+            _isEndConditionDone = InvokeEndConditions();
         }
 
         protected abstract bool InvokeEndConditions();
+
+        private void DisposeConditions()
+        {
+            foreach (var condition in Conditions)
+            {
+                condition.Dispose();
+            }
+            Conditions.Clear();
+        }
     }
 }
